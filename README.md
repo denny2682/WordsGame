@@ -18,4 +18,4 @@ Requisiti di gioco dei singoli livelli:
 - il 3° livello è composto da una griglia di lettere 7x7 (49 lettere), sarà considerato superato se sono stati totalizzati 120 punti:
   essendo l'ultimo livello, se seuperato il gioco termina.
 - Sono ammesse concorrenti al punteggio solo parole di minimo 4 lettere.
-- la composizione delle parole, sarà effettuata con le seguenti indicazioni: una volta selezionata la prima lettera sarà possibile selezionare solo lettere contingenti, anche in selezione diagonale. Ad eccezion fatta se la lettera rimane nei bordi della griglia sarà possibile selezionare una appartenente al bordo esterno di una qualsiasi lettera anch'essa appartanente al bordo esterno.
+- la composizione delle parole, sarà effettuata con le seguenti indicazioni: una volta selezionata la prima lettera sarà possibile selezionare solo lettere contingenti, anche in selezione diagonale. Ad eccezion fatta se la lettera rimane nei bordi della griglia allora sarà possibile selezionare altre lettere anch'esse appartenenti al bordo esterno.
