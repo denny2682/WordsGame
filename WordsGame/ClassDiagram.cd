@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="GameWords.Game.CreateLevel" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAIABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\CreateLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWords.Game.GameManager" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAABQAASAAAAAAAAAIQAAAEBAAAABKAAAACABAA=</HashCode>
+      <FileName>Game\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWords.Game.GenericImage" Collapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAwAAAAQAAAgAAAAAAgAAAAAA=</HashCode>
+      <FileName>Game\GenericImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWords.Game.GlobalWordsContainer" Collapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgEAAAAAAAAAAAQAAAAEAAAAgAAAEAAAABAAAAAA=</HashCode>
+      <FileName>Game\GlobalWordsContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWords.Game.ImageProxy" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAgQAAAAAAAAQCQAAABCAAEBIAAAAAAA=</HashCode>
+      <FileName>Game\ImageProxy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWords.Game.ButtonReload">
+    <Position X="6" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAAgAAAAAAAAgAAAAAAAAAAAAAAAAIAAAAAAI=</HashCode>
+      <FileName>Game\ButtonReload.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameWords.Game.Level" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQACAIAAgACBAgAgAAIAAAgEBAAAUAIAIAIAACQQgA=</HashCode>
+      <FileName>Game\Level.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GameWords.Game.LevelSettings" Collapsed="true">
+    <Position X="16" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACQCAAAkAgAAIAAAAAAAAAA=</HashCode>
+      <FileName>Game\LevelSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWords.Game.Subject" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAgAAAAAIAAAAAAAAAAIAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Game\Subject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameWords.Game.Text" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAgAAgAAABAAwAABAAABAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Game\Text.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GameWords.Game.Utility.Utils" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAEAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Game\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="GameWords.Game.Utility.Size" Collapsed="true">
+    <Position X="16" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GameWords.Game.Utility.ColorRGB" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAEAAQA=</HashCode>
+      <FileName>Game\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="GameWords.Game.ILevelBuilder" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAIAAAACBAAAAAAAAAAAAAAAAEAAAAAAAAAQAAA=</HashCode>
+      <FileName>Game\ILevelBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GameWords.Game.IObserver" Collapsed="true">
+    <Position X="16" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Game\IObserver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GameWords.Game.ISprite">
+    <Position X="14.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Game\ISprite.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="GameWords.Game.Utility.TypeFont" Collapsed="true">
+    <Position X="13.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameWords.Game.Utility.TypeSprite" Collapsed="true">
+    <Position X="16" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAQAAAABAAAAAACAAAIAA=</HashCode>
+      <FileName>Game\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
