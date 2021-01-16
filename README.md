@@ -15,8 +15,8 @@ Ogni livello deve contenere:
 
 Requisiti di gioco dei singoli livelli:
 - il 1° livello è composto da una griglia di lettere 5x5 (25 lettere), sarà considerato superato se sono stati totalizzati almeno 30 punti;
-- il 2° livello è composto da una griglia di lettere 6x6 (36 lettere), sarà considerato superato se sono stati totalizzati 60 punti;
-- il 3° livello è composto da una griglia di lettere 7x7 (49 lettere), sarà considerato superato se sono stati totalizzati 120 punti:
+- il 2° livello è composto da una griglia di lettere 6x6 (36 lettere), sarà considerato superato se sono stati totalizzati almeno 60 punti;
+- il 3° livello è composto da una griglia di lettere 7x7 (49 lettere), sarà considerato superato se sono stati totalizzati almeno 120 punti:
   essendo l'ultimo livello, se superato il gioco termina;
 - Sono ammesse concorrenti al punteggio solo parole di minimo 4 lettere;
 - Non possono essere selezionate nello stesso livello parole precedentemente composte;
