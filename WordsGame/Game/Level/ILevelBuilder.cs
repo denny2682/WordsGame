@@ -13,7 +13,9 @@ namespace GameWords.Game
 
       public void buildWinner(int x, int y, ColorRGB colorRGB);
 
-      public void buildReloadButton (int x, int y, ColorRGB colorRGB);
+      public void buildBtnReloadLevel (int x, int y, ColorRGB colorRGB);
+
+      public void buildBtnReloadGame(int x, int y, ColorRGB colorRGB);
 
       public List<ISprite> GetSprites();
      

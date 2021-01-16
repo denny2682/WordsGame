@@ -55,8 +55,19 @@ namespace GameWords.Game
       /// <param name="spriteBatch"></param>
       public void Draw(SpriteBatch spriteBatch)
       {
-         SpriteFont spriteFont = WordsGame.Content.Load<SpriteFont>("Fonts/" + font.ToString());
-         spriteBatch.DrawString(spriteFont, ViewText, new Vector2(PosX, PosY), Utils.GetColorXNA(colorText));
+         try
+         {
+            SpriteFont spriteFont = WordsGame.Content.Load<SpriteFont>("Fonts/" + font.ToString());
+            spriteBatch.DrawString(spriteFont, ViewText, new Vector2(PosX, PosY), Utils.GetColorXNA(colorText));
+         }
+         catch (Exception ex)
+         {
+            Console.WriteLine("Si è verificato un problema durante il draw del font: " + ex.Message);
+         }
+
+
+
+
       }
 
       public void UpdateText(string text)

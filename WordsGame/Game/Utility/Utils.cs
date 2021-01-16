@@ -52,9 +52,9 @@ namespace GameWords.Game.Utility
       Letter,
       Image,
       Text,
-      ButtonReload,
+      BtnReloadLevel,
+      BtnReloadGame,
       Score,
-
    }
 
 

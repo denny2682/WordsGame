@@ -129,9 +129,22 @@ namespace GameWords.Game
       /// <param name="x">position x</param>
       /// <param name="y">position y</param>
       /// <param name="color">color in Rgb</param>
-      public void buildReloadButton(int x, int y, ColorRGB color = new ColorRGB())
+      public void buildBtnReloadLevel(int x, int y, ColorRGB color = new ColorRGB())
       {
-         ButtonReload btn = new ButtonReload("images/reload", x, y, color, game);
+         ButtonReloadLevel btn = new ButtonReloadLevel("images/reload", x, y, color, game);
+         sprites.Add(btn);
+      }
+
+      /// <summary>
+      /// Builds the button reload
+      /// </summary>
+      /// <param name="typeFont">type font</param>
+      /// <param name="x">position x</param>
+      /// <param name="y">position y</param>
+      /// <param name="color">color in Rgb</param>
+      public void buildBtnReloadGame(int x, int y, ColorRGB color = new ColorRGB())
+      {
+         ButtonReloadGame btn = new ButtonReloadGame("images/home-icon", x, y, color, game);
          sprites.Add(btn);
       }
 

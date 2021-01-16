@@ -40,11 +40,13 @@ namespace GameWords.Game
 
          // Title level
          builder.buildText(TypeFont.Arial, "* LIVELLO " + settings.LevelNumber + " * ", 400, 30, new ColorRGB(255, 255, 255, 255));
-         builder.buildReloadButton(680, 10, new ColorRGB(255, 255, 255, 255));
+         builder.buildBtnReloadLevel(680, 10, new ColorRGB(255, 255, 255, 255));
+         
+         builder.buildBtnReloadGame(770, 10, new ColorRGB(255, 255, 255, 255));
 
          // Level Description
-         builder.buildText(TypeFont.Arial, "Hai due minuti di tempo per fare " + settings.MinScore + " punti.", 100, 90, new ColorRGB(255, 255, 255, 255));
-         builder.buildText(TypeFont.Arial, "Componi parole lunghe almeno 4 lettere.   ", 100, 120, new ColorRGB(255, 255, 255, 255));
+         builder.buildText(TypeFont.Arial, "Completa il livello ottendo almeno " + settings.MinScore + " punti.", 100, 90, new ColorRGB(255, 255, 255, 255));
+         builder.buildText(TypeFont.Arial, "Non sono ammesse parole di 2 e 3 lettere", 100, 120, new ColorRGB(255, 255, 255, 255));
 
          // Letters grid 
          builder.buildGrid(settings.Row, settings.Coloumn, 90, 200);

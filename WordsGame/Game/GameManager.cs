@@ -51,12 +51,12 @@ namespace GameWords.Game
 
 
       /// <summary>
-      /// This method update the current level, the time and the score.
+      /// This method update the current level and the score.
       /// </summary>
       /// <param name="gameTime"></param>
       public void Update(GameTime gameTime)
       {
-            if (level != null && level.Score >= getLevelSettings().MinScore)
+            if (level != null && level.Score >= getLevelSettings().MinScore && !endgame)
                getNextLevel();
        }
 
@@ -146,8 +146,12 @@ namespace GameWords.Game
                   break;
                case TypeSprite.Text:
                   break;
-               case TypeSprite.ButtonReload:
-                  ((ButtonReload)item).DetachButtonReaload();
+               case TypeSprite.BtnReloadLevel:
+                  ((ButtonReloadLevel)item).DetachButtonReaload();
+                  break;
+               case TypeSprite.BtnReloadGame:
+                  if (!endgame)
+                     ((ButtonReloadGame)item).DetachButtonReaload();
                   break;
                case TypeSprite.Score:
                   break;
@@ -178,9 +182,10 @@ namespace GameWords.Game
             if (currentLevel == settingsLevel.Count && !endgame)
             {
                // detach the observers
+               endgame = true;
                detachObservers();
                sprites = director.addWin();
-               endgame = true;
+               
             }
             
          }
@@ -195,6 +200,22 @@ namespace GameWords.Game
          createLevel();
       }
 
+      /// <summary>
+      /// This method reloads the current level
+      /// </summary>
+      public void ReloadGame()
+      {
+         try
+         {
+            endgame = false;
+            currentLevel = settingsLevel.FirstOrDefault().LevelNumber;
+            createLevel();
+         }
+         catch (Exception ex)
+         {
+            Console.WriteLine("Reload game is not execute: " + ex.Message);
+         }
+      }
       #endregion
 
    }
