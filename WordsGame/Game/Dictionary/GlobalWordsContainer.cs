@@ -77,13 +77,15 @@ namespace GameWords.Game
                }
             }
             else
-            { // todo: inserire throw exeption}
+            {
+               throw new Exception("File Dictionary not is founded");
+               // todo: inserire throw exeption}
             }
             return lines;
          }
          catch (Exception ex)
          {
-            
+            throw new Exception("File Dictionary is not readable");
             return null;
          }
       }

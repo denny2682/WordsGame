@@ -9,20 +9,24 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
+using GameWords.Game;
 using GameWords.Game.Utility;
+
 
 namespace GameWords.Game
 {
-   public class GameManager : Subject
+   public class GameManager
    {
       #region variables private
 
       private Level level;
       private CreateLevel director;
-      private int currentLevel = 0;
-      private List<ISprite> sprites;
-      private bool endgame = false;
+      private int currentLevel;
+      private List<ISprite> sprites; 
+      private bool endgame;
       private List<LevelSettings> settingsLevel;
+
+      
 
       #endregion
 
@@ -31,13 +35,14 @@ namespace GameWords.Game
       /// </summary>
       public GameManager(List<LevelSettings> settings)
       {
+         endgame = false;
+
+         currentLevel = -1;
+
          // Pattern Builder: Create Director
          director = new CreateLevel();
 
          settingsLevel = settings;
-
-         // Set Level with first level
-         currentLevel = settingsLevel.FirstOrDefault().LevelNumber;
 
          // Istance a new Level 
          level = new Level(this);
@@ -49,6 +54,10 @@ namespace GameWords.Game
          createLevel();
       }
 
+      #region public variables
+      public event EventHandler MouseOnPress;
+      public event EventHandler MouseOnRelease;
+      #endregion
 
       /// <summary>
       /// This method update the current level and the score.
@@ -56,9 +65,9 @@ namespace GameWords.Game
       /// <param name="gameTime"></param>
       public void Update(GameTime gameTime)
       {
-            if (level != null && level.Score >= getLevelSettings().MinScore && !endgame)
-               getNextLevel();
-       }
+         if (level != null && level.Score >= getLevelSettings().MinScore && !endgame)
+            getNextLevel();
+      }
 
       /// <summary>
       /// It Returns sprites of the level 
@@ -90,13 +99,18 @@ namespace GameWords.Game
       #region Methods for mouse events
       public void MouseIsLeftDown()
       {
-         NotifySelected();
+         if (MouseOnPress != null)
+            MouseOnPress(this, new EventArgs());
       }
 
       public void MouseIsLeftRelease()
       {
          level.UpdateScore();
-         NotifyUnSelected();
+         if (MouseOnRelease != null)
+         {
+            MouseOnRelease(this, new EventArgs());
+         }
+
       }
       #endregion
 
@@ -104,11 +118,20 @@ namespace GameWords.Game
       #region Private methods
       private LevelSettings getLevelSettings()
       {
-         LevelSettings setting = settingsLevel?.FirstOrDefault(x => x.LevelNumber == currentLevel);
-         if (setting == null)
-            throw new InvalidDataException("Setting Level not found for level number:" + currentLevel);
+         LevelSettings settings = null;
 
-         return setting;
+         if (settingsLevel?.FirstOrDefault() == null)
+            throw new InvalidDataException(" Levels Setting not found");
+         else
+         {
+            currentLevel = (currentLevel == -1) ? settingsLevel.FirstOrDefault().LevelNumber : currentLevel;
+            settings = settingsLevel?.FirstOrDefault(x => x.LevelNumber == currentLevel);
+
+            if (settings == null)
+               throw new InvalidDataException("Level Setting not found for level number: " + currentLevel);
+         }
+
+         return settings;
       }
 
       /// <summary>
@@ -118,12 +141,16 @@ namespace GameWords.Game
       {
          try
          {
-            detachObservers();
+            detachEvents();
 
             // it creates the level starting from the current one
             LevelSettings settings = getLevelSettings();
+
             if (settings != null)
+            {
                sprites = director.BuildLevel(settings);
+
+            }
          }
          catch (Exception ex)
          {
@@ -131,36 +158,36 @@ namespace GameWords.Game
          }
       }
 
-
-      private void detachObservers()
+      // Detach the events
+      private void detachEvents()
       {
-         // Detach di tutti gli osservatori
-         foreach (var item in level.GetSprites())
+         //removes the methods that were registered in the MouseOnPress event
+         if (MouseOnPress?.GetInvocationList() != null)
          {
-            switch (item.GetTypeSprite())
+            // Detach di tutti gli osservatori
+            foreach (var item in MouseOnPress.GetInvocationList())
             {
-               case TypeSprite.Letter:
-                  ((LetterTile)item).DetachLetter();
-                  break;
-               case TypeSprite.Image:
-                  break;
-               case TypeSprite.Text:
-                  break;
-               case TypeSprite.BtnReloadLevel:
-                  ((ButtonReloadLevel)item).DetachButtonReaload();
-                  break;
-               case TypeSprite.BtnReloadGame:
-                  if (!endgame)
-                     ((ButtonReloadGame)item).DetachButtonReaload();
-                  break;
-               case TypeSprite.Score:
-                  break;
-
+               var type = (ISprite)item.Target;
+               MouseOnPress -= (EventHandler)item;
             }
          }
 
+         //removes the methods that were registered in the MouseOnPress event
+         if (MouseOnRelease?.GetInvocationList() != null)
+         {
+            // Detach di tutti gli osservatori
+            foreach (var item in MouseOnRelease.GetInvocationList())
+            {
+               var type = (ISprite)item.Target;
+               if ((type.GetTypeSprite() != TypeSprite.BtnReloadGame) || 
+                   (type.GetTypeSprite() == TypeSprite.BtnReloadGame && !endgame))
+               {
+                  MouseOnRelease -= (EventHandler)item;
+               }
+            }
+         }
       }
-      
+
       /// <summary>
       /// if the level has been passed, it goes to the next one, 
       /// otherwise it reloads the current one
@@ -183,11 +210,10 @@ namespace GameWords.Game
             {
                // detach the observers
                endgame = true;
-               detachObservers();
+               detachEvents();
                sprites = director.addWin();
-               
             }
-            
+
          }
       }
 

@@ -13,9 +13,9 @@ namespace GameWords.Game
       #region private variables
 
       private int score = 0;
-      private List<ISprite> sprites = new List<ISprite>();
+      private List<ISprite> sprites;
       // list of words selected in the level
-      private List<string> selectedWordList = new List<string>();
+      private List<string> selectedWordList;
       private ISprite[,] spriteGridLetter;
 
       // Italian alphabet
@@ -36,6 +36,8 @@ namespace GameWords.Game
       public Level(GameManager gameManager)
       {
          game = gameManager;
+         sprites = new List<ISprite>();
+         selectedWordList = new List<string>();
       }
 
       #region public variables
@@ -84,7 +86,7 @@ namespace GameWords.Game
          int distance = 20;
 
          // Create a grid with with the letters of the alphabet
-         string[,] letterGrid = createLetterGrid(row, coloumn);
+         char[,] letterGrid = createLetterGrid(row, coloumn);
 
          // 
          for (int x = 0; x < letterGrid.GetLength(0); x++)
@@ -93,7 +95,7 @@ namespace GameWords.Game
             int posY = posRelY;
             for (int y = 0; y < letterGrid.GetLength(1); y++)
             {
-               string letter = letterGrid[x, y];
+               char letter = letterGrid[x, y];
                // Todo:
                // va rivisto il modo di assegnare la posizione
                ColorRGB colorWhite = new ColorRGB(255, 255, 255, 255);
@@ -209,7 +211,8 @@ namespace GameWords.Game
 
             // Aggiorna lo score
             score += value;
-            ((Text)scoreSprite).UpdateText(Score.ToString());
+            if (scoreSprite != null)
+               ((Text)scoreSprite).UpdateText(Score.ToString());
          }
       }
 
@@ -231,25 +234,23 @@ namespace GameWords.Game
       #endregion
 
       #region privates methods
-      private string[,] createLetterGrid(int row, int coloumn)
+      private char[,] createLetterGrid(int row, int coloumn)
       {
          Random rnd = new Random();
-         string[,] letterGrid = new string[row, coloumn];
-         Dictionary<string, int> frequencyLetter = new Dictionary<string, int>();
+         char[,] letterGrid = new char[row, coloumn];
+         Dictionary<char, int> frequencyLetter = new Dictionary<char, int>();
 
          for (int x = 0; x < row; x++)
          {
             for (int y = 0; y < coloumn; y++)
             {
-               string letter = "";
+               char letter = '\0';
                if (rnd.Next(2) == 1)
-               {
                   letter = extractactLetter(frequencyLetter, rnd, row * coloumn, letters);
-               }
                else
                   letter = extractactLetter(frequencyLetter, rnd, row * coloumn, vowels);
 
-               if (letter != "")
+               if (letter != '\0')
                {
                   if (!frequencyLetter.ContainsKey(letter))
                      frequencyLetter.Add(letter, 1);
@@ -259,7 +260,7 @@ namespace GameWords.Game
                else
                {
                   // Se non è riuscito ad estrapolare nessuna lettera mette una consonante
-                  letter = vowels.Substring(rnd.Next(vowels.Length), 1);
+                  letter = vowels.Substring(rnd.Next(vowels.Length), 1).ToCharArray().FirstOrDefault();
                }
 
                letterGrid[x, y] = letter;
@@ -269,17 +270,17 @@ namespace GameWords.Game
          return letterGrid;
       }
 
-      private string extractactLetter(Dictionary<string, int> frequencyLetter, Random rnd, int LetterTotal, string letters)
+      private char extractactLetter(Dictionary<char, int> frequencyLetter, Random rnd, int LetterTotal, string letters)
       {
-         string letterExtracted = "";
+         char letterExtracted = '\0';
          int count = 0;
 
-         while (letterExtracted == "" && count <= 21)
+         while (letterExtracted == '\0' && count <= 21)
          {
             // Esce dal ciclo quando ha trovato la lettera o ha eseguito 21 cicli
             // Affinché l'algoritmo possa sempre uscire
             count++;
-            string letter = letters.Substring(rnd.Next(letters.Length), 1);
+            char letter = letters.Substring(rnd.Next(letters.Length), 1).ToCharArray().FirstOrDefault();
             // Calcola per ogni lettera estratta la percentuale massima di estrazione
             double extractionmax = (LetterTile.getAnalisysExtractLangueIT(letter) * LetterTotal / 100);
 

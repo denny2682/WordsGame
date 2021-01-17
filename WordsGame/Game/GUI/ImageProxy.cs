@@ -13,18 +13,18 @@ namespace GameWords.Game
    class ImageProxy :  ISprite
    {
       
-      private Size _extent;
-      private string _fileName;
-      protected int _x;
-      protected int _y;
+      private Size extent;
+      private string fileNameImg;
+      protected int posX;
+      protected int posY;
       protected bool highlight = false;
       protected ColorRGB color;
       protected Image Image;
 
       public ImageProxy(string fileName, int x, int y, ColorRGB colorRGB) // constructor
       {
-         _fileName = fileName; // local copy of filename
-         _x = x; _y = y;
+         fileNameImg = fileName; // local copy of filename
+         posX = x; posY = y;
          color = colorRGB;
         
       }
@@ -42,7 +42,7 @@ namespace GameWords.Game
       protected Image GetImage()
       {
          if (Image == null)
-           Image = new Image(_fileName, _x, _y, color);
+           Image = new Image(fileNameImg, posX, posY, color);
          return Image;
       }
 
@@ -50,9 +50,9 @@ namespace GameWords.Game
       {
          // Todo:
          // trovare il modo di sapere in anticipo la larghezza per poterlo istanziare
-         if (_extent.Height == 0 && _extent.Width == 0)
-            _extent = Utils.GetFileSize(_fileName, WordsGame.Content.RootDirectory);
-         return _extent;
+         if (extent.Height == 0 && extent.Width == 0)
+            extent = Utils.GetFileSize(fileNameImg, WordsGame.Content.RootDirectory);
+         return extent;
       }
 
       public void Draw(SpriteBatch spriteBatch) 
@@ -70,11 +70,8 @@ namespace GameWords.Game
 
       public bool IsSelectedArea() 
       {
-         return Utils.IntersectRectangle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new Rectangle(_x, _y, GetExtent().Width, GetExtent().Height));
+         return Utils.IntersectRectangle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new Rectangle(posX, posY, GetExtent().Width, GetExtent().Height));
       }
-      
-
-
 
    }
 

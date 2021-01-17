@@ -11,16 +11,24 @@ namespace GameWords.Game
    class Image
    {
       private Texture2D texture;
-      
-      public int PosX;
-      public int PosY;
+      private int posX;
+      private int posY;
       public ColorRGB Color{ get; set; }
 
       public Image(string fileName, int x, int y, ColorRGB colorRGB)
       {
-         PosX = x; PosY = y;
+         posX = x; posY = y;
          texture = WordsGame.Content.Load<Texture2D>(fileName);
          Color = colorRGB;
+      }
+
+      public int PosX { 
+         get { return posX;  } 
+      }
+
+      public int PosY
+      {
+         get { return posY; }
       }
 
       public Size GetExtent()

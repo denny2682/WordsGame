@@ -86,8 +86,7 @@ namespace GameWords.Game
 
 
       /// <summary>
-      ///  Update
-      ///  Call 60 update per seconds
+      ///  Update method between 30 and 60 times per second on a normal situation (based on the device).
       /// </summary>
       /// <param name="gameTime">gameTime supplier from XNA </param>
       protected override void Update(GameTime gameTime)

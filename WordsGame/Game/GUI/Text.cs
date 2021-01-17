@@ -74,6 +74,8 @@ namespace GameWords.Game
       {
          ViewText = text;
       }
+
+     
    }
 
 

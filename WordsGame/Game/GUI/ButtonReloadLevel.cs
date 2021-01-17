@@ -9,7 +9,7 @@ namespace GameWords.Game
    // Todo: alla fine potrebbe essere necessario effettuare le seguenti modifiche
    // LetterTile potrebbe ereditare da image e text invece già lo è
    // LetterTile dunque estende image
-   class ButtonReloadGame : ImageProxy, IObserver
+   class ButtonReloadLevel : ImageProxy
    {
       private GameManager gameManager;
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
@@ -17,32 +17,23 @@ namespace GameWords.Game
       /// <summary>
       /// Costruttore di una nuova tessera lettera
       /// </summary>
-      public ButtonReloadGame(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
+      public ButtonReloadLevel(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
       {
          gameManager = gameController;
-         gameManager.Attach(this);
+         gameManager.MouseOnRelease += this.Onclick;
       }
 
       public override TypeSprite GetTypeSprite()
       {
-         return TypeSprite.BtnReloadGame;
+         return TypeSprite.BtnReloadLevel;
       }
 
-      public virtual void DetachButtonReaload()
-      {
-         gameManager.Detach(this);
-      }
-
-      public void Selected()
-      {
-         
-      }
-
-      // rilascio del click
-      public virtual void UnSelected()
+     
+      // Onclick
+      public virtual void Onclick(object sender, EventArgs e)
       {
          if (IsSelectedArea())
-            gameManager.ReloadGame();
+            gameManager.ReloadLevel();
       }
    }
 }

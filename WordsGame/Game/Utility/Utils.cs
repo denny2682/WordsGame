@@ -37,16 +37,6 @@ namespace GameWords.Game.Utility
 
    }
 
-   /// <summary>
-   /// Risorse font         
-   /// // Load fonts - https://www.dafont.com/it/ può essere utile per trovare altri font
-   /// </summary>
-   public enum TypeFont
-   {
-      Arial,
-      Hud
-   }
-
    public enum TypeSprite
    {
       Letter,
@@ -57,6 +47,11 @@ namespace GameWords.Game.Utility
       Score,
    }
 
+   public enum TypeFont
+   {
+      Arial,
+      Hud
+   }
 
    public struct Size
    {
