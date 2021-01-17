@@ -6,11 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Globalization;
-using GameWords.Game.Utility;
+using WordsGame.Game.Utility;
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
-   class ImageProxy :  ISprite
+   class ImageProxy :  ISprite, ISubject
    {
       
       private Size extent;

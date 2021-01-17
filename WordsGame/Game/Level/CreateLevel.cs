@@ -3,9 +3,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using GameWords.Game.Utility;
+using WordsGame.Game.Utility;
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
    /// <summary>
    /// Pattern Builder 

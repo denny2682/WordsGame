@@ -7,7 +7,7 @@ using System.Linq;
 // Operazione su i/o
 // Singleton 
 // lo apre e lo mantiene in memoria con un singleton
-namespace GameWords.Game
+namespace WordsGame.Game
 {
 
    // This is a singleton class

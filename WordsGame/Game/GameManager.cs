@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
-using GameWords.Game;
-using GameWords.Game.Utility;
+using WordsGame.Game;
+using WordsGame.Game.Utility;
 
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
    public class GameManager
    {
@@ -25,9 +25,6 @@ namespace GameWords.Game
       private List<ISprite> sprites; 
       private bool endgame;
       private List<LevelSettings> settingsLevel;
-
-      
-
       #endregion
 
       /// <summary>
@@ -121,14 +118,14 @@ namespace GameWords.Game
          LevelSettings settings = null;
 
          if (settingsLevel?.FirstOrDefault() == null)
-            throw new InvalidDataException(" Levels Setting is not found");
+            throw new Exception(" Levels Setting is not found");
          else
          {
             currentLevel = (currentLevel == -1) ? settingsLevel.FirstOrDefault().LevelNumber : currentLevel;
             settings = settingsLevel?.FirstOrDefault(x => x.LevelNumber == currentLevel);
 
             if (settings == null)
-               throw new InvalidDataException("Level Setting is not found for level number: " + currentLevel);
+               throw new Exception("Level Setting is not found for level number: " + currentLevel);
          }
 
          return settings;
@@ -148,10 +145,7 @@ namespace GameWords.Game
             LevelSettings settings = getLevelSettings();
 
             if (settings != null)
-            {
                sprites = director.BuildLevel(settings);
-
-            }
          }
          catch (Exception ex)
          {
@@ -213,7 +207,7 @@ namespace GameWords.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("Reload game is not execute: " + ex.Message);
+            Console.WriteLine("Reload game is not execute a causa di un errore imprevisto " + ex.Message);
          }
       }
       #endregion

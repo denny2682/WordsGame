@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace GameWords.Game.Utility
+namespace WordsGame.Game.Utility
 {
    public static class Utils
    {

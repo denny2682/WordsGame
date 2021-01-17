@@ -1,14 +1,14 @@
 ﻿using System;
-using GameWords.Game;
+using WordsGame.Game;
 
-namespace GameWords
+namespace WordsGame
 {
    public static class Program
    {
       [STAThread]
       static void Main()
       {
-         using (var game = new WordsGame())
+         using (var game = new Game.WordsGame())
             game.Run();
       }
    }

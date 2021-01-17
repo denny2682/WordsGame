@@ -7,9 +7,10 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
-   public interface ISprite
+   public interface ISubject
    {
+      Size GetExtent();
       void Draw(SpriteBatch spriteBatch);
-      TypeSprite GetTypeSprite();
+      void Draw(SpriteBatch spriteBatch, ColorRGB color);
    }
 }

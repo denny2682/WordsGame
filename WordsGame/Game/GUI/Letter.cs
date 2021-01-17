@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GameWords.Game.Utility;
+using WordsGame.Game.Utility;
 
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
    // Todo: alla fine potrebbe essere necessario effettuare le seguenti modifiche
    // LetterTile potrebbe ereditare da image e text invece già lo è
@@ -173,8 +173,11 @@ namespace GameWords.Game
          {
             base.highlight = true;
             long date = DateTime.Now.Ticks;
-            sequenceSelected = date;
-            
+            if (sequenceSelected == 0)
+            {
+               sequenceSelected = date;
+            }
+
          }
       }
 

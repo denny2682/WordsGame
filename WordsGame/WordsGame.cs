@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Content;
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
    public class WordsGame : Microsoft.Xna.Framework.Game
    {

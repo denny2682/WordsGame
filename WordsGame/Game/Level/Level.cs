@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using GameWords.Game.Utility;
+using WordsGame.Game.Utility;
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
 
    // Pattern builder: role concrete builder

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GameWords.Game.Utility;
+using WordsGame.Game.Utility;
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
    public interface ILevelBuilder
    {

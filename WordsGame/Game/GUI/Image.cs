@@ -4,9 +4,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using GameWords.Game.Utility;
+using WordsGame.Game.Utility;
 
-namespace GameWords.Game
+namespace WordsGame.Game
 {
    class Image
    {
