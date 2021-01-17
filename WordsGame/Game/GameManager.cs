@@ -115,20 +115,20 @@ namespace GameWords.Game
       #endregion
 
 
-      #region Private methods
+      #region Private methods for the level
       private LevelSettings getLevelSettings()
       {
          LevelSettings settings = null;
 
          if (settingsLevel?.FirstOrDefault() == null)
-            throw new InvalidDataException(" Levels Setting not found");
+            throw new InvalidDataException(" Levels Setting is not found");
          else
          {
             currentLevel = (currentLevel == -1) ? settingsLevel.FirstOrDefault().LevelNumber : currentLevel;
             settings = settingsLevel?.FirstOrDefault(x => x.LevelNumber == currentLevel);
 
             if (settings == null)
-               throw new InvalidDataException("Level Setting not found for level number: " + currentLevel);
+               throw new InvalidDataException("Level Setting is not found for level number: " + currentLevel);
          }
 
          return settings;
@@ -141,6 +141,7 @@ namespace GameWords.Game
       {
          try
          {
+            // Detach all events that were associated
             detachEvents();
 
             // it creates the level starting from the current one
@@ -158,35 +159,7 @@ namespace GameWords.Game
          }
       }
 
-      // Detach the events
-      private void detachEvents()
-      {
-         //removes the methods that were registered in the MouseOnPress event
-         if (MouseOnPress?.GetInvocationList() != null)
-         {
-            // Detach di tutti gli osservatori
-            foreach (var item in MouseOnPress.GetInvocationList())
-            {
-               var type = (ISprite)item.Target;
-               MouseOnPress -= (EventHandler)item;
-            }
-         }
-
-         //removes the methods that were registered in the MouseOnPress event
-         if (MouseOnRelease?.GetInvocationList() != null)
-         {
-            // Detach di tutti gli osservatori
-            foreach (var item in MouseOnRelease.GetInvocationList())
-            {
-               var type = (ISprite)item.Target;
-               if ((type.GetTypeSprite() != TypeSprite.BtnReloadGame) || 
-                   (type.GetTypeSprite() == TypeSprite.BtnReloadGame && !endgame))
-               {
-                  MouseOnRelease -= (EventHandler)item;
-               }
-            }
-         }
-      }
+      
 
       /// <summary>
       /// if the level has been passed, it goes to the next one, 
@@ -205,7 +178,8 @@ namespace GameWords.Game
          }
          else
          {
-            // se è l'ultimo livello ha vinto
+            // if it is last level and the game is finished then 
+            // it call the director for add sprite image of end game
             if (currentLevel == settingsLevel.Count && !endgame)
             {
                // detach the observers
@@ -240,6 +214,46 @@ namespace GameWords.Game
          catch (Exception ex)
          {
             Console.WriteLine("Reload game is not execute: " + ex.Message);
+         }
+      }
+      #endregion
+
+      #region private Method for events 
+      // Detach the events
+      private void detachEvents()
+      {
+         try
+         {
+            // removes the methods that were registered in the MouseOnPress event
+            if (MouseOnPress?.GetInvocationList() != null)
+            {
+               // Detach di tutti gli osservatori
+               foreach (var item in MouseOnPress.GetInvocationList())
+               {
+                  var type = (ISprite)item.Target;
+                  MouseOnPress -= (EventHandler)item;
+               }
+            }
+
+            //removes the methods that were registered in the MouseOnPress event
+            if (MouseOnRelease?.GetInvocationList() != null)
+            {
+               // Detach di tutti gli osservatori
+               foreach (var item in MouseOnRelease.GetInvocationList())
+               {
+                  var type = (ISprite)item.Target;
+                  if ((type.GetTypeSprite() != TypeSprite.BtnReloadGame) ||
+                      (type.GetTypeSprite() == TypeSprite.BtnReloadGame && !endgame))
+                  {
+                     MouseOnRelease -= (EventHandler)item;
+                  }
+               }
+            }
+         }
+         catch (Exception ex)
+         {
+            Console.WriteLine("Non è riuscito a rimuovere gli eventi a causa di un errore imprevisto: " + ex.Message);
+
          }
       }
       #endregion
