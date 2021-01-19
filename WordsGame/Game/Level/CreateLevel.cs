@@ -24,16 +24,14 @@ namespace WordsGame.Game
 
       /// <summary>
       /// Build Level 
-      /// it creates a <paramref name="row"/>x<paramref name="coloumn"/> grid
+      /// it creates a grid
       /// </summary>
-      /// <param name="minScore"></param>
-      /// <param name="row"></param>
-      /// <param name="coloumn"></param>
-      /// <returns></returns>
+      /// <param name="settings">Level Setting </param>
+      /// <returns>sprites</returns>
       public List<ISprite> BuildLevel(LevelSettings settings)
       {
          if (settings == null)
-            throw new InvalidDataException("Settings Level not found");
+            throw new InvalidDataException("Level settings is not found");
 
          // Reset Level 
          builder.Reset();
@@ -49,7 +47,7 @@ namespace WordsGame.Game
          builder.buildText(TypeFont.Arial, "Non sono ammesse parole di 2 e 3 lettere", 100, 120, new ColorRGB(255, 255, 255, 255));
 
          // Letters grid 
-         builder.buildGrid(settings.Row, settings.Coloumn, 90, 200);
+         builder.buildGrid(settings.Rows, settings.Columns, 90, 200);
 
          // Level score
          builder.buildText(TypeFont.Arial, "Punteggio:", 100, 30, new ColorRGB(255, 255, 255, 255));
@@ -59,6 +57,10 @@ namespace WordsGame.Game
          return builder.GetSprites();
       }
 
+      /// <summary>
+      /// Method to add a new sprite with the winner's graphic
+      /// </summary>
+      /// <returns></returns>
       public List<ISprite> addWin()
       {
          if (builder != null)

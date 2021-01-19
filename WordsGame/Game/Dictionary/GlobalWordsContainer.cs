@@ -4,13 +4,13 @@ using System.Text;
 using System.IO;
 using System.Linq;
 
-// Operazione su i/o
-// Singleton 
-// lo apre e lo mantiene in memoria con un singleton
+
 namespace WordsGame.Game
 {
-
-   // This is a singleton class
+   /// <summary>
+   /// Pattern: This is a singleton 
+   /// Istances the dictionary 
+   /// </summary>
    public class GlobalWordsContainer
    {
       private static GlobalWordsContainer istance = null;
@@ -20,7 +20,7 @@ namespace WordsGame.Game
       protected GlobalWordsContainer() { }
       public static GlobalWordsContainer Istance
       {
-         // istance può solo essere restituita, ma non assegnata dall'esterno
+         // instance can only be returned, but not assigned from outside
          get
          {
             if (istance == null)
@@ -31,7 +31,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Resituisce il dizionario delle parole
+      /// Returns the dictionary of words
       /// </summary>
       public List<string> WordsDictionary
       {
@@ -40,8 +40,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Metodo pubblico per ottenere le parole
-      /// // todo: valutare se implementare unload
+      /// Load the dictionary
       /// </summary>
       /// <param name="openStream"></param>
       public List<string> Load(string openStream)
@@ -54,7 +53,7 @@ namespace WordsGame.Game
 
 
       /// <summary>
-      /// restituisce le parole del dizionario
+      /// Returns the dictionary words
       /// </summary>
       /// <param name="fileStream">fileStream</param>
       /// <returns>List<string></returns>
@@ -78,7 +77,7 @@ namespace WordsGame.Game
             }
             else
             {
-               throw new Exception("File Dictionary not is founded");
+               throw new Exception("Dictionary file was not found");
                // todo: inserire throw exeption}
             }
             return lines;
@@ -90,26 +89,42 @@ namespace WordsGame.Game
          }
       }
 
+      /// <summary>
+      /// Returns a random word
+      /// </summary>
+      /// <param name="minLenght"></param>
+      /// <param name="maxLenght"></param>
+      /// <param name="maxWords"></param>
+      /// <returns></returns>
       public List<string> GetExtractWords(int minLenght, int maxLenght, int maxWords)
       {
-         Random rnd = new Random();
-         List<string> lines = new List<string>();
-         if (wordsDictionary != null && maxWords < wordsDictionary.Count())
+         try
          {
-            var words = wordsDictionary.ToArray();
-            int lenght = wordsDictionary.Count();
-            int count = 0;
-            while (count <= maxWords)
-            { 
-               string word = words[rnd.Next(lenght)];
-               if (!lines.Contains(word) && word.Length >= minLenght && word.Length <= maxLenght)
+            Random rnd = new Random();
+            List<string> lines = new List<string>();
+            if (wordsDictionary != null && maxWords < wordsDictionary.Count())
+            {
+               var words = wordsDictionary.ToArray();
+               int lenght = wordsDictionary.Count();
+               int count = 0;
+
+               while (count <= maxWords)
                {
-                  lines.Add(word);
-                  count++;
+                  string word = words[rnd.Next(lenght)];
+                  if (!lines.Contains(word) && word.Length >= minLenght && word.Length <= maxLenght)
+                  {
+                     lines.Add(word);
+                     count++;
+                  }
                }
             }
+            return lines;
          }
-         return lines;
+         catch (Exception ex)
+         {
+            Console.WriteLine("unexpected error: " + ex.Message);
+            return null;
+         }
       }
    }
 

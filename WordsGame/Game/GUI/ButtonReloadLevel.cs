@@ -6,13 +6,15 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
-   // Todo: alla fine potrebbe essere necessario effettuare le seguenti modifiche
-   // LetterTile potrebbe ereditare da image e text invece già lo è
-   // LetterTile dunque estende image
+   /// <summary>
+   /// Button 
+   /// </summary>
    class ButtonReloadLevel : ImageProxy
    {
+      #region private variables
       private GameManager gameManager;
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
+      #endregion
 
       /// <summary>
       /// Costruttore di una nuova tessera lettera
@@ -20,9 +22,15 @@ namespace WordsGame.Game
       public ButtonReloadLevel(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
       {
          gameManager = gameController;
+
+         // Bind the method to events
          gameManager.MouseOnRelease += this.Onclick;
       }
 
+      /// <summary>
+      /// Returns the sprite type
+      /// </summary>
+      /// <returns></returns>
       public override TypeSprite GetTypeSprite()
       {
          return TypeSprite.BtnReloadLevel;

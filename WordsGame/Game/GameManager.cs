@@ -15,10 +15,12 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
+   /// <summary>
+   /// Game Manager handles the interactione with the level and the sprites
+   /// </summary>
    public class GameManager
    {
       #region variables private
-
       private Level level;
       private CreateLevel director;
       private int currentLevel;
@@ -28,7 +30,7 @@ namespace WordsGame.Game
       #endregion
 
       /// <summary>
-      /// Start the "builder" pattern with the first level
+      /// Create new level and start the game
       /// </summary>
       public GameManager(List<LevelSettings> settings)
       {
@@ -52,6 +54,7 @@ namespace WordsGame.Game
       }
 
       #region public variables
+      // Events call sprite-specific methods
       public event EventHandler MouseOnPress;
       public event EventHandler MouseOnRelease;
       #endregion
@@ -59,7 +62,7 @@ namespace WordsGame.Game
       /// <summary>
       /// This method update the current level and the score.
       /// </summary>
-      /// <param name="gameTime"></param>
+      /// <param name="gameTime">Xna GameTime</param>
       public void Update(GameTime gameTime)
       {
          if (level != null && level.Score >= getLevelSettings().MinScore && !endgame)
@@ -69,7 +72,7 @@ namespace WordsGame.Game
       /// <summary>
       /// It Returns sprites of the level 
       /// </summary>
-      /// <returns></returns>
+      /// <returns>sprites</returns>
       public List<ISprite> GetCurrentSprite()
       {
          return sprites;
@@ -94,12 +97,17 @@ namespace WordsGame.Game
 
 
       #region Methods for mouse events
+      /// <summary>
+      /// Intercept the click of the mouse
+      /// </summary>
       public void MouseIsLeftDown()
       {
          if (MouseOnPress != null)
             MouseOnPress(this, new EventArgs());
       }
-
+      /// <summary>
+      /// Intercept the release of the mouse
+      /// </summary>
       public void MouseIsLeftRelease()
       {
          level.UpdateScore();
@@ -113,6 +121,10 @@ namespace WordsGame.Game
 
 
       #region Private methods for the level
+      /// <summary>
+      /// Get the current level in Game
+      /// </summary>
+      /// <returns></returns>
       private LevelSettings getLevelSettings()
       {
          LevelSettings settings = null;
@@ -195,7 +207,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// This method reloads the current level
+      /// This method reloads the game
       /// </summary>
       public void ReloadGame()
       {
@@ -207,7 +219,7 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("Reload game is not execute a causa di un errore imprevisto " + ex.Message);
+            Console.WriteLine("Game reload fails due to unexpected error " + ex.Message);
          }
       }
       #endregion
@@ -218,10 +230,10 @@ namespace WordsGame.Game
       {
          try
          {
-            // removes the methods that were registered in the MouseOnPress event
+            // Removes the methods that were registered in the MouseOnPress event
             if (MouseOnPress?.GetInvocationList() != null)
             {
-               // Detach di tutti gli osservatori
+               // Detach all the sprites subscrive at the event
                foreach (var item in MouseOnPress.GetInvocationList())
                {
                   var type = (ISprite)item.Target;
@@ -229,10 +241,10 @@ namespace WordsGame.Game
                }
             }
 
-            //removes the methods that were registered in the MouseOnPress event
+            // Removes the methods that were registered in the MouseOnPress event
             if (MouseOnRelease?.GetInvocationList() != null)
             {
-               // Detach di tutti gli osservatori
+               // // Detach all the sprites subscrive at the event
                foreach (var item in MouseOnRelease.GetInvocationList())
                {
                   var type = (ISprite)item.Target;
@@ -246,8 +258,7 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("Non è riuscito a rimuovere gli eventi a causa di un errore imprevisto: " + ex.Message);
-
+            Console.WriteLine("It was unable to remove events due to an unexpected error: " + ex.Message);
          }
       }
       #endregion

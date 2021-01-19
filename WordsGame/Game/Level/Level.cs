@@ -7,7 +7,9 @@ using WordsGame.Game.Utility;
 namespace WordsGame.Game
 {
 
-   // Pattern builder: role concrete builder
+   /// <summary>
+   /// Pattern builder: role concrete builder
+   /// </summary>
    public sealed class Level : ILevelBuilder
    {
       #region private variables
@@ -28,7 +30,7 @@ namespace WordsGame.Game
       #endregion
 
       /// <summary>
-      /// Costructor
+      /// Costructor Level
       /// </summary>
       /// <param name="gameManager">gameManager</param>
       public Level(GameManager gameManager)
@@ -69,13 +71,13 @@ namespace WordsGame.Game
       /// Builds a letters grid
       /// </summary>
       /// <param name="row">number row</param>
-      /// <param name="coloumn">number coloumn</param>
+      /// <param name="column">number column</param>
       /// <param name="posRelx">position x</param>
       /// <param name="posRelY">position y</param>
-      public void buildGrid(int row, int coloumn, int posRelx, int posRelY)
+      public void buildGrid(int row, int column, int posRelx, int posRelY)
       {
          Random rnd = new Random();
-         spriteGridLetter = new ISprite[row, coloumn];
+         spriteGridLetter = new ISprite[row, column];
          int posX = posRelx;
          int width = 0;
          int height = 0;
@@ -84,7 +86,7 @@ namespace WordsGame.Game
          int distance = 20;
 
          // Create a grid with with the letters of the alphabet
-         char[,] letterGrid = createLetterGrid(row, coloumn);
+         char[,] letterGrid = createLetterGrid(row, column);
 
          // 
          for (int x = 0; x < letterGrid.GetLength(0); x++)
@@ -165,48 +167,51 @@ namespace WordsGame.Game
       
 
       /// <summary>
-      /// Update sprite of type time
+      /// Update Score
       /// </summary>
-      /// <param name="text">string to show</param>
       public void UpdateScore()
       {
-         // Carica il dizionario in una lista
-         var globalWordsContainer = GlobalWordsContainer.Istance;
-         var wordsDictionary = globalWordsContainer.Load("Content/Dictionary/660000_parole_italiane.txt");
+         // Load the dictionary into a list
+         GlobalWordsContainer globalWordsContainer = GlobalWordsContainer.Istance;
+         List<string> wordsDictionary = globalWordsContainer.Load("Content/Dictionary/660000_parole_italiane.txt");
 
-         // Ordina le lettere selezionate in base al tempo del mouseDown sulla lettera
+         // Sorts the selected letters according to the time of the mouseDown on the letter
+         // prevents the same letter from being selected multiple times by hovering over it
          var spriteOrdered = sprites.Where(x => x.GetTypeSprite().Equals(TypeSprite.Letter) && ((LetterTile)x).Highlight);
-         // 
          var spritesDistinct = spriteOrdered.OrderBy(l => ((LetterTile)l).SequenceSelected).Distinct<ISprite>(); 
 
-         var str = "";
+         // reset string
+         string str = "";
          int value = 0;
+
+         // concatenate the letters selected
          foreach (var sprite in spritesDistinct)
          {
+            // Read the letter from the sprite
             var letterTile = (LetterTile)sprite;
             str += letterTile.Letter;
+            // Sums value of the letter selected
             value += letterTile.Value;
          }
 
-         // Verifica la lunghezza della parola e la sua presenza nel dizionario
-         // Sono accettate solo parole lunghe più di 3 caratteri e parole non precedentemente selezionate nel precedente livello
+         // Check the length of the word,  if the word exists in the dictionary and the word is not previously selected
+         // Accept word lenght of characters four or more
          if (str.Length >= 4 && wordsDictionary.IndexOf(str) >= 0 && selectedWordList.IndexOf(str) == -1)
          {
-            // Aggiunge la parola ad una lista
-            // per poter essere escluse 
+            // Add new word
             selectedWordList.Add(str);
 
-            // Esegue il suono associato alla parola corretta
+            // Call the method that plays the sound effect from the GameManager
             game.NotifyCorrectWord();
 
-            // Aggiorna lo score
+            // Updates the score value and update scoreSprite
             score += value;
             if (scoreSprite != null)
                ((Text)scoreSprite).UpdateText(Score.ToString());
          }
       }
 
-      // Ritorna gli sprites
+      // Return all sprites instantiated in the level
       public List<ISprite> GetSprites()
       {
          return sprites;
@@ -215,7 +220,7 @@ namespace WordsGame.Game
 
       public void Reset()
       {
-         // Inizializza il livello con il punteggio uguale a zero
+         // reset score, sprite and selectWordList 
          score = 0;
          scoreSprite = null;
          selectedWordList = new List<string>();

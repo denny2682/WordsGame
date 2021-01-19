@@ -4,39 +4,54 @@ using System.Text;
 
 namespace WordsGame.Game
 {
+   /// <summary>
+   /// Class to set a level
+   /// </summary>
    public class LevelSettings
    {
       private int levelNumber;
       private int minScore;
-      private int row;
-      private int coloumn;
+      private int rows;
+      private int columns;
 
       public LevelSettings(int settingLevelNumber, int settingMinScore, int settingRow, int SettingColoumn)
       {
          levelNumber = settingLevelNumber;
          minScore = settingMinScore;
-         row = settingRow;
-         coloumn = SettingColoumn;
+         rows = settingRow;
+         columns = SettingColoumn;
       }
 
+      /// <summary>
+      /// Number of level
+      /// </summary>
       public int LevelNumber
       {
          get { return levelNumber; }
       }
 
+      /// <summary>
+      /// Minimum score to go to the next level
+      /// </summary>
       public int MinScore
       {
          get { return minScore; }
       }
 
-      public int Row
+      /// <summary>
+      /// Rows for the grid
+      /// </summary>
+      public int Rows
       {
-         get { return row; }
+         get { return rows; }
       }
 
-      public int Coloumn
+      /// <summary>
+      /// Columns for the grid
+      /// </summary>
+      public int Columns
       {
-         get { return coloumn; }
+         get { return columns; }
       }
 
    }

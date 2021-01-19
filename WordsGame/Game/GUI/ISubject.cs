@@ -7,6 +7,9 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
+   /// <summary>
+   /// Pattern Proxy: role subject
+   /// </summary>
    public interface ISubject
    {
       Size GetExtent();

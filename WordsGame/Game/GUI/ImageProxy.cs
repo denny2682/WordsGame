@@ -10,6 +10,9 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
+   /// <summary>
+   /// Pattern Proxy: role proxy
+   /// </summary>
    class ImageProxy :  ISprite, ISubject
    {
       
@@ -30,16 +33,28 @@ namespace WordsGame.Game
         
       }
 
+      /// <summary>
+      /// Return if selected element
+      /// </summary>
       public bool Highlight
       {
          get { return highlight; }
 
       }
+
+      /// <summary>
+      /// return sprite type
+      /// </summary>
+      /// <returns></returns>
       public virtual TypeSprite GetTypeSprite()
       {
          return TypeSprite.Image;
       }
 
+      /// <summary>
+      /// Get real image
+      /// </summary>
+      /// <returns></returns>
       protected Image GetImage()
       {
          if (Image == null)
@@ -47,6 +62,10 @@ namespace WordsGame.Game
          return Image;
       }
 
+      /// <summary>
+      /// Return size calculate
+      /// </summary>
+      /// <returns></returns>
       public Size GetExtent()
       {
          // Todo:
@@ -56,6 +75,10 @@ namespace WordsGame.Game
          return extent;
       }
 
+      /// <summary>
+      /// Draws in the spritebatch
+      /// </summary>
+      /// <param name="spriteBatch"></param>
       public void Draw(SpriteBatch spriteBatch) 
       {
          if (highlight)
@@ -64,11 +87,19 @@ namespace WordsGame.Game
             GetImage().Draw(ref spriteBatch);
       }
 
+      /// <summary>
+      /// Draws in the spritebatch with the specific color
+      /// </summary>
+      /// <param name="spriteBatch"></param>
       public void Draw(SpriteBatch spriteBatch, ColorRGB color)
       {
          GetImage().Draw(ref spriteBatch, color);
       }
 
+      /// <summary>
+      /// returns true if it is in the pointer area
+      /// </summary>
+      /// <returns></returns>
       public bool IsSelectedArea() 
       {
          return Utils.IntersectRectangle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new Rectangle(posX, posY, GetExtent().Width, GetExtent().Height));

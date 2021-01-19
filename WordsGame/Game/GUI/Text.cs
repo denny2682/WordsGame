@@ -8,26 +8,27 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
-   // Todo:
-   // Si potrebbe prevedere un erditarietà con estensione di un particolare effetto su testo
-   // Solo alla fine e solo se necessario
+  
    /// <summary>
-   /// 
+   /// Defines a class to show text in the screen
    /// </summary>
    public class Text : ISprite
    {
-      // Colore di Default
+      #region private variables
+      // Color and type font
       private ColorRGB colorText; 
       private TypeFont font;
-      
+      #endregion
+
+      #region public variables
       public int PosX;
       public int PosY;
       public string ViewText;
+      #endregion
 
 
-      //L'ultimo parametro è opzionale
       /// <summary>
-      /// 
+      /// Defines a text sprite 
       /// </summary>
       /// <param name="typeFont"></param>
       /// <param name="text"></param>
@@ -43,15 +44,18 @@ namespace WordsGame.Game
          colorText = color;
       }
 
+      /// <summary>
+      /// Type sprite
+      /// </summary>
+      /// <returns></returns>
       public TypeSprite GetTypeSprite()
       {
          return TypeSprite.Text;
       }
 
       /// <summary>
-      /// 
+      /// Draw in spriteBatch
       /// </summary>
-      /// <param name="content"></param>
       /// <param name="spriteBatch"></param>
       public void Draw(SpriteBatch spriteBatch)
       {
@@ -62,7 +66,7 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("Si è verificato un problema durante il draw del font: " + ex.Message);
+            Console.WriteLine("Unexpected error draw detail message: " + ex.Message);
          }
 
 

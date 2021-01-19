@@ -8,10 +8,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WordsGame.Game.Utility
 {
+   /// <summary>
+   /// groups the methods, structures and enums useful in the graphic context
+   /// </summary>
    public static class Utils
    {
       /// <summary>
-      /// Restituisce la classe Color di Xna
+      /// Returns the Xna class for Color
       /// </summary>
       /// <param name="colorRGB"></param>
       /// <returns></returns>
@@ -20,12 +23,24 @@ namespace WordsGame.Game.Utility
          return new Color(colorRGB.R, colorRGB.G, colorRGB.B, colorRGB.A);
       }
 
+      /// <summary>
+      /// Return the image size lettertile
+      /// </summary>
+      /// <param name="fileName"></param>
+      /// <param name="rootDirectory"></param>
+      /// <returns></returns>
       public static Size GetFileSize(string fileName, string rootDirectory)
       {
          return new Size(90, 90);
       }
 
-      
+      /// <summary>
+      /// this method gets the vector identifying the mouse position and the rectangle in the x and y coordinates,
+      /// it returns true if there is intersection.
+      /// </summary>
+      /// <param name="mouseLocation"></param>
+      /// <param name="RectangleLocation"></param>
+      /// <returns></returns>
       public static bool IntersectRectangle(Vector2 mouseLocation, Rectangle RectangleLocation)
       {
          if (mouseLocation.X >= RectangleLocation.Left && mouseLocation.X <= RectangleLocation.Right &&
@@ -37,6 +52,11 @@ namespace WordsGame.Game.Utility
 
    }
 
+   #region enum
+
+   /// <summary>
+   /// The type of sprite in the graphic context
+   /// </summary>
    public enum TypeSprite
    {
       Letter,
@@ -47,12 +67,20 @@ namespace WordsGame.Game.Utility
       Score,
    }
 
+   /// <summary>
+   /// The type of font in the graphic context
+   /// </summary>
    public enum TypeFont
    {
       Arial,
       Hud
    }
+   #endregion
 
+   #region struct
+   /// <summary>
+   /// Struct to define width and height
+   /// </summary>
    public struct Size
    {
       public int Width;
@@ -65,6 +93,9 @@ namespace WordsGame.Game.Utility
       }
    }
 
+   /// <summary>
+   /// Struct to define a custom ColorRGB
+   /// </summary>
    public struct ColorRGB
    {
       public byte R;
@@ -80,5 +111,6 @@ namespace WordsGame.Game.Utility
          A = a;
       }
    }
+   #endregion
 
 }

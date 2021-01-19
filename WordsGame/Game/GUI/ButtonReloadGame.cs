@@ -5,9 +5,10 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
-   // Todo: alla fine potrebbe essere necessario effettuare le seguenti modifiche
-   // LetterTile potrebbe ereditare da image e text invece già lo è
-   // LetterTile dunque estende image
+   
+   /// <summary>
+   /// Button new game
+   /// </summary>
    class ButtonReloadGame : ImageProxy
    {
       private GameManager gameManager;
@@ -19,16 +20,21 @@ namespace WordsGame.Game
       public ButtonReloadGame(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
       {
          gameManager = gameController;
-         // add event
+
+         // Bind the method to events
          gameManager.MouseOnRelease += this.Onclick;
       }
 
+      /// <summary>
+      /// returns the sprite type
+      /// </summary>
+      /// <returns></returns>
       public override TypeSprite GetTypeSprite()
       {
          return TypeSprite.BtnReloadGame;
       }
 
-      // rilascio del click
+      // Method called on button click
       public void Onclick(object sender, EventArgs e)
       {
          if (IsSelectedArea())

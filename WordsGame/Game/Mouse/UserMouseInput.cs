@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 namespace Microsoft.Xna.Framework
 {
    // mouse keyboard and text
-
    /// <summary>
    /// Will Motil 2010 last updated 2018
    /// </summary>
@@ -231,9 +230,7 @@ namespace Microsoft.Xna.Framework
       }
 
       /// <summary>
-      /// Multi Frame logic function ( we dont time things here we rely on frame pass logic )
       /// this fuction ONLY needs to and should be called 1 time per frame 
-      /// more then that will mess up the 
       /// tracking of the mousejustreleased value
       /// get the mouse values and save them to track what the mouse is doing exactly
       /// </summary>
@@ -251,7 +248,6 @@ namespace Microsoft.Xna.Framework
             VirtualPos.Y = (float)Y * ScreenSizeMultiplier.Y;
 
             // mouse wheel
-            //  
             mouseWheelUpOrDown = 0;// 0 is the state of no action on the wheel
             mouseWheelValue = mouseState.ScrollWheelValue;
             //

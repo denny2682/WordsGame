@@ -12,7 +12,7 @@ namespace WordsGame.Game
 {
    public class WordsGame : Microsoft.Xna.Framework.Game
    {
-      // Static class of Xna for the graphics manager
+      // Static classes of Xna for the graphic manager
       public static GraphicsDeviceManager Graphics;
       public static SpriteBatch SpriteBatch;
 

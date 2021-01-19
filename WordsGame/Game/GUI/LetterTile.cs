@@ -6,52 +6,71 @@ using WordsGame.Game.Utility;
 
 namespace WordsGame.Game
 {
-   // Todo: alla fine potrebbe essere necessario effettuare le seguenti modifiche
-   // LetterTile potrebbe ereditare da image e text invece già lo è
-   // LetterTile dunque estende image
+   /// <summary>
+   /// LetterTile is a screen sprite
+   /// </summary>
    class LetterTile : ImageProxy
    {
+      #region private variables
       private int value;
       private long sequenceSelected;
       private GameManager gameManager;
       private char letter;
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
- 
+      #endregion
+
       /// <summary>
-      /// Costruttore di una nuova tessera lettera
+      /// Costructor
       /// </summary>
       public LetterTile(char charLetter, string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
       {
          sequenceSelected = 0;
          letter = charLetter;
          value = getValue(letter);
-        
+
+         // Bind the method to events
          gameManager = gameController;
          gameManager.MouseOnPress += this.OnSelected;
          gameManager.MouseOnRelease += this.OnReleaseSelection;
-
-         //gameManager.Attach(this);
       }
 
+      /// <summary>
+      /// return value of letter
+      /// </summary>
       public int Value {
          get { return value; }
       }
 
+      /// <summary>
+      /// return DateTime.Now.Ticks
+      /// </summary>
       public long SequenceSelected
       {
          get { return sequenceSelected; }
       }
 
+      /// <summary>
+      /// returns the letter of the alphabet
+      /// </summary>
       public char Letter
       {
          get { return letter; }
       }
 
+      /// <summary>
+      /// return Type sprite
+      /// </summary>
+      /// <returns></returns>
       public override TypeSprite GetTypeSprite()
       {
          return TypeSprite.Letter;
       }
  
+      /// <summary>
+      /// Return the value of the letter
+      /// </summary>
+      /// <param name="letter"></param>
+      /// <returns></returns>
       private int getValue(char letter)
       {
          int value = 0;
@@ -88,6 +107,11 @@ namespace WordsGame.Game
          return value;
       }
 
+      /// <summary>
+      /// return the frequency 
+      /// </summary>
+      /// <param name="letter"></param>
+      /// <returns></returns>
       public static double getAnalisysExtractLangueIT(char letter)
       {
          double frequence = 0;
@@ -160,28 +184,32 @@ namespace WordsGame.Game
          return frequence;
       }
 
-      // prova eventi c#
+      /// <summary>
+      /// Events associated with the mouse
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
       public void OnSelected(object sender, EventArgs e)
       {
-         // da tenere un elenco di elementi aggiornabili, che non è detto siano delle lettere
-         // Può essere anche un bottone per andare al secondo livello.
-         
          if (this.IsSelectedArea())
          {
             base.highlight = true;
+            
             long date = DateTime.Now.Ticks;
             if (sequenceSelected == 0)
-            {
                sequenceSelected = date;
-            }
+            
 
          }
       }
 
+      /// <summary>
+      /// Events associated with the mouse
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
       public void OnReleaseSelection(object sender, EventArgs e)
       {
-         // da tenere un elenco di elementi aggiornabili, che non è detto siano delle lettere
-         // Può essere anche un bottone per andare al secondo livello.
          base.highlight = false;
          sequenceSelected = 0;
       }
