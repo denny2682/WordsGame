@@ -15,6 +15,7 @@ namespace WordsGame.Game
       
       private Size extent;
       private string fileNameImg;
+
       protected int posX;
       protected int posY;
       protected bool highlight = false;
@@ -63,7 +64,7 @@ namespace WordsGame.Game
             GetImage().Draw(ref spriteBatch);
       }
 
-      public void Draw(SpriteBatch spriteBatch, ColorRGB color) 
+      public void Draw(SpriteBatch spriteBatch, ColorRGB color)
       {
          GetImage().Draw(ref spriteBatch, color);
       }

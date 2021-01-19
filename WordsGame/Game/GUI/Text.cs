@@ -17,12 +17,12 @@ namespace WordsGame.Game
    public class Text : ISprite
    {
       // Colore di Default
-      private ColorRGB colorText;
+      private ColorRGB colorText; 
+      private TypeFont font;
+      
       public int PosX;
       public int PosY;
       public string ViewText;
-      private TypeFont font;
-      private readonly TypeSprite type = TypeSprite.Text;
 
 
       //L'ultimo parametro è opzionale
@@ -45,7 +45,7 @@ namespace WordsGame.Game
 
       public TypeSprite GetTypeSprite()
       {
-         return type;
+         return TypeSprite.Text;
       }
 
       /// <summary>

@@ -57,7 +57,7 @@ namespace WordsGame.Game
          Graphics.PreferredBackBufferHeight = backbufferHeight;
          Graphics.ApplyChanges();
 
-         // game manager operates on the levels and game logic
+         // game manager 
          gameManager = new GameManager(
             new List<LevelSettings>() {
                new LevelSettings(1, 30, 5, 5),

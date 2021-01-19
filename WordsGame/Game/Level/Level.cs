@@ -23,8 +23,6 @@ namespace WordsGame.Game
       private const string vowels = "aeiou";
 
       private GameManager game;
-
-      private Text spriteTime = null;
       private ISprite scoreSprite = null;
 
       #endregion
@@ -164,15 +162,7 @@ namespace WordsGame.Game
       }
 
 
-      /// <summary>
-      /// Update sprite of type time
-      /// </summary>
-      /// <param name="text">string to show</param>
-      public void updateTime(string text)
-      {
-         if (spriteTime != null)
-            spriteTime.ViewText = text;
-      }
+      
 
       /// <summary>
       /// Update sprite of type time

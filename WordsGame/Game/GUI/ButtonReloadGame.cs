@@ -29,7 +29,7 @@ namespace WordsGame.Game
       }
 
       // rilascio del click
-      public virtual void Onclick(object sender, EventArgs e)
+      public void Onclick(object sender, EventArgs e)
       {
          if (IsSelectedArea())
             gameManager.ReloadGame();

@@ -12,23 +12,20 @@ namespace WordsGame.Game
    class LetterTile : ImageProxy
    {
       private int value;
-      private long sequenceSelected = 0;
+      private long sequenceSelected;
       private GameManager gameManager;
       private char letter;
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
-
-
-      public bool justSelected = true;
-      
+ 
       /// <summary>
       /// Costruttore di una nuova tessera lettera
       /// </summary>
       public LetterTile(char charLetter, string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
       {
-         
+         sequenceSelected = 0;
          letter = charLetter;
          value = getValue(letter);
-         justSelected = false;
+        
          gameManager = gameController;
          gameManager.MouseOnPress += this.OnSelected;
          gameManager.MouseOnRelease += this.OnReleaseSelection;
@@ -164,7 +161,7 @@ namespace WordsGame.Game
       }
 
       // prova eventi c#
-      public virtual void OnSelected(object sender, EventArgs e)
+      public void OnSelected(object sender, EventArgs e)
       {
          // da tenere un elenco di elementi aggiornabili, che non è detto siano delle lettere
          // Può essere anche un bottone per andare al secondo livello.
@@ -181,7 +178,7 @@ namespace WordsGame.Game
          }
       }
 
-      public virtual void OnReleaseSelection(object sender, EventArgs e)
+      public void OnReleaseSelection(object sender, EventArgs e)
       {
          // da tenere un elenco di elementi aggiornabili, che non è detto siano delle lettere
          // Può essere anche un bottone per andare al secondo livello.
