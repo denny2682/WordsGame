@@ -22,7 +22,7 @@ namespace WordsGame.Game
          gameManager = gameController;
 
          // Bind the method to events
-         gameManager.MouseOnRelease += this.Onclick;
+         gameManager.MouseOnReleased += this.Onclick;
       }
 
       /// <summary>

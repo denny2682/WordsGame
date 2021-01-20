@@ -55,8 +55,8 @@ namespace WordsGame.Game
 
       #region public variables
       // Events call sprite-specific methods
-      public event EventHandler MouseOnPress;
-      public event EventHandler MouseOnRelease;
+      public event EventHandler MouseOnPressed;
+      public event EventHandler MouseOnReleased;
       #endregion
 
       /// <summary>
@@ -102,8 +102,8 @@ namespace WordsGame.Game
       /// </summary>
       public void MouseIsLeftDown()
       {
-         if (MouseOnPress != null)
-            MouseOnPress(this, new EventArgs());
+         if (MouseOnPressed != null)
+            MouseOnPressed(this, new EventArgs());
       }
       /// <summary>
       /// Intercept the release of the mouse
@@ -111,9 +111,9 @@ namespace WordsGame.Game
       public void MouseIsLeftRelease()
       {
          level.UpdateScore();
-         if (MouseOnRelease != null)
+         if (MouseOnReleased != null)
          {
-            MouseOnRelease(this, new EventArgs());
+            MouseOnReleased(this, new EventArgs());
          }
 
       }
@@ -130,7 +130,7 @@ namespace WordsGame.Game
          LevelSettings settings = null;
 
          if (settingsLevel?.FirstOrDefault() == null)
-            throw new Exception(" Levels Setting is not found");
+            throw new Exception(" The Levels Setting was not founded");
          else
          {
             currentLevel = (currentLevel == -1) ? settingsLevel.FirstOrDefault().LevelNumber : currentLevel;
@@ -233,27 +233,27 @@ namespace WordsGame.Game
          try
          {
             // Removes the methods that were registered in the MouseOnPress event
-            if (MouseOnPress?.GetInvocationList() != null)
+            if (MouseOnPressed?.GetInvocationList() != null)
             {
                //  Detach all the sprites subscribed to the event 
-               foreach (var item in MouseOnPress.GetInvocationList())
+               foreach (var item in MouseOnPressed.GetInvocationList())
                {
                   var type = (ISprite)item.Target;
-                  MouseOnPress -= (EventHandler)item;
+                  MouseOnPressed -= (EventHandler)item;
                }
             }
 
             // Removes the methods that were registered in the MouseOnPress event
-            if (MouseOnRelease?.GetInvocationList() != null)
+            if (MouseOnReleased?.GetInvocationList() != null)
             {
                //  Detach all the sprites subscribed to the event 
-               foreach (var item in MouseOnRelease.GetInvocationList())
+               foreach (var item in MouseOnReleased.GetInvocationList())
                {
                   var type = (ISprite)item.Target;
                   if ((type.GetTypeSprite() != TypeSprite.BtnReloadGame) ||
                       (type.GetTypeSprite() == TypeSprite.BtnReloadGame && !endgame))
                   {
-                     MouseOnRelease -= (EventHandler)item;
+                     MouseOnReleased -= (EventHandler)item;
                   }
                }
             }

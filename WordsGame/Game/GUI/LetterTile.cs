@@ -30,8 +30,8 @@ namespace WordsGame.Game
 
          // Bind the method to events
          gameManager = gameController;
-         gameManager.MouseOnPress += this.OnSelected;
-         gameManager.MouseOnRelease += this.OnReleaseSelection;
+         gameManager.MouseOnPressed += this.OnSelected;
+         gameManager.MouseOnReleased += this.OnReleaseSelection;
       }
 
       /// <summary>
