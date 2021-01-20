@@ -43,7 +43,7 @@ namespace WordsGame.Game
       #region public variables
 
       /// <summary>
-      /// Return current score
+      /// Returns current score
       /// </summary>
       public int Score
       {
@@ -85,10 +85,10 @@ namespace WordsGame.Game
          // Visual distance between the letters
          int distance = 20;
 
-         // Create a grid with with the letters of the alphabet
+         // Creates a grid with with the letters of the alphabet
          char[,] letterGrid = createLetterGrid(row, column);
 
-         // 
+         // Builds the grid 
          for (int x = 0; x < letterGrid.GetLength(0); x++)
          {
             posX += width + distance;
@@ -96,8 +96,7 @@ namespace WordsGame.Game
             for (int y = 0; y < letterGrid.GetLength(1); y++)
             {
                char letter = letterGrid[x, y];
-               // Todo:
-               // va rivisto il modo di assegnare la posizione
+               
                ColorRGB colorWhite = new ColorRGB(255, 255, 255, 255);
                LetterTile letterTile = new LetterTile(letter,"Letters/letter-" + letter, posX, posY, colorWhite, game);
                Size size = letterTile.GetExtent();
@@ -125,26 +124,26 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Builds the button reload
+      /// Builds Level reload button
       /// </summary>
       /// <param name="typeFont">type font</param>
       /// <param name="x">position x</param>
       /// <param name="y">position y</param>
       /// <param name="color">color in Rgb</param>
-      public void buildBtnReloadLevel(int x, int y, ColorRGB color = new ColorRGB())
+      public void buildReloadLevelBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
          ButtonReloadLevel btn = new ButtonReloadLevel("images/reload", x, y, color, game);
          sprites.Add(btn);
       }
 
       /// <summary>
-      /// Builds the button reload
+      /// Builds game reload button
       /// </summary>
       /// <param name="typeFont">type font</param>
       /// <param name="x">position x</param>
       /// <param name="y">position y</param>
       /// <param name="color">color in Rgb</param>
-      public void buildBtnReloadGame(int x, int y, ColorRGB color = new ColorRGB())
+      public void buildReloadGameBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
          ButtonReloadGame btn = new ButtonReloadGame("images/home-icon", x, y, color, game);
          sprites.Add(btn);
@@ -211,13 +210,15 @@ namespace WordsGame.Game
          }
       }
 
-      // Return all sprites instantiated in the level
+      // Returns all sprites instantiated in the level
       public List<ISprite> GetSprites()
       {
          return sprites;
       }
 
-
+      /// <summary>
+      /// Resets level
+      /// </summary>
       public void Reset()
       {
          // reset score, sprite and selectWordList 
@@ -229,21 +230,27 @@ namespace WordsGame.Game
       #endregion
 
       #region privates methods
-      private char[,] createLetterGrid(int row, int coloumn)
+      /// <summary>
+      /// Create a new letters grid
+      /// </summary>
+      /// <param name="row"></param>
+      /// <param name="column"></param>
+      /// <returns></returns>
+      private char[,] createLetterGrid(int row, int column)
       {
          Random rnd = new Random();
-         char[,] letterGrid = new char[row, coloumn];
+         char[,] letterGrid = new char[row, column];
          Dictionary<char, int> frequencyLetter = new Dictionary<char, int>();
 
          for (int x = 0; x < row; x++)
          {
-            for (int y = 0; y < coloumn; y++)
+            for (int y = 0; y < column; y++)
             {
                char letter = '\0';
                if (rnd.Next(2) == 1)
-                  letter = extractactLetter(frequencyLetter, rnd, row * coloumn, letters);
+                  letter = extractactLetter(frequencyLetter, rnd, row * column, letters);
                else
-                  letter = extractactLetter(frequencyLetter, rnd, row * coloumn, vowels);
+                  letter = extractactLetter(frequencyLetter, rnd, row * column, vowels);
 
                if (letter != '\0')
                {
@@ -265,6 +272,14 @@ namespace WordsGame.Game
          return letterGrid;
       }
 
+      /// <summary>
+      /// Extracts a letter from the alphabet
+      /// </summary>
+      /// <param name="frequencyLetter"></param>
+      /// <param name="rnd"></param>
+      /// <param name="LetterTotal"></param>
+      /// <param name="letters"></param>
+      /// <returns></returns>
       private char extractactLetter(Dictionary<char, int> frequencyLetter, Random rnd, int LetterTotal, string letters)
       {
          char letterExtracted = '\0';
@@ -272,20 +287,21 @@ namespace WordsGame.Game
 
          while (letterExtracted == '\0' && count <= 21)
          {
-            // Esce dal ciclo quando ha trovato la lettera o ha eseguito 21 cicli
-            // Affinché l'algoritmo possa sempre uscire
+            // Exits the loop when it has found the letter or has performed 21 loops
+            // So that the algorithm can always go out
             count++;
             char letter = letters.Substring(rnd.Next(letters.Length), 1).ToCharArray().FirstOrDefault();
-            // Calcola per ogni lettera estratta la percentuale massima di estrazione
+            // It Calculates the maximum extraction percentage for each letter extracted
             double extractionmax = (LetterTile.getAnalisysExtractLangueIT(letter) * LetterTotal / 100);
 
-            // se l'estrazione della lettera è inferiore alla sua massima estrazione allora l'aggiunge 
+            // If the letter extraction is less than its maximum extraction then it adds it
             if (frequencyLetter.ContainsKey(letter) && frequencyLetter[letter] < extractionmax)
                letterExtracted = letter;
             else if (!frequencyLetter.ContainsKey(letter))
                letterExtracted = letter;
          }
 
+         // returns a new letter
          return letterExtracted;
       }
 

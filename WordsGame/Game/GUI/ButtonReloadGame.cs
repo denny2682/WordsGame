@@ -15,7 +15,7 @@ namespace WordsGame.Game
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
 
       /// <summary>
-      /// Costruttore di una nuova tessera lettera
+      /// Costructur
       /// </summary>
       public ButtonReloadGame(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
       {
@@ -34,7 +34,11 @@ namespace WordsGame.Game
          return TypeSprite.BtnReloadGame;
       }
 
-      // Method called on button click
+      /// <summary>
+      /// This method is called on button click
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
       public void Onclick(object sender, EventArgs e)
       {
          if (IsSelectedArea())

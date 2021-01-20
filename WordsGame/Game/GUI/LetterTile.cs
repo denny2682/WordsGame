@@ -185,7 +185,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Events associated with the mouse
+      /// This method is called when the letter is pressed
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
@@ -204,7 +204,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Events associated with the mouse
+      /// This method is called when the letter is released
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>

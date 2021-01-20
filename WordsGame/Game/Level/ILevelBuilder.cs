@@ -11,14 +11,14 @@ namespace WordsGame.Game
    public interface ILevelBuilder
    {
       public void buildText(TypeFont typeFont, string text, int x, int y, ColorRGB colorRGB);
-      public void buildGrid(int row, int coloumn, int x, int y);
+      public void buildGrid(int row, int column, int x, int y);
       public void buildScore(TypeFont typeFont, int x, int y, ColorRGB colorRGB);
 
       public void buildWinner(int x, int y, ColorRGB colorRGB);
 
-      public void buildBtnReloadLevel (int x, int y, ColorRGB colorRGB);
+      public void buildReloadLevelBtn (int x, int y, ColorRGB colorRGB);
 
-      public void buildBtnReloadGame(int x, int y, ColorRGB colorRGB);
+      public void buildReloadGameBtn (int x, int y, ColorRGB colorRGB);
 
       public List<ISprite> GetSprites();
      

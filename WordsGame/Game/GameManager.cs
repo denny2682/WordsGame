@@ -11,12 +11,12 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
 using WordsGame.Game;
 using WordsGame.Game.Utility;
-
+using System.Diagnostics;
 
 namespace WordsGame.Game
 {
    /// <summary>
-   /// Game Manager handles the interactione with the level and the sprites
+   /// Game Manager handles the interaction with the level and the sprites
    /// </summary>
    public class GameManager
    {
@@ -161,7 +161,7 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("Create Level is failed!");
+            Debug.WriteLine("Create Level is failed!");
          }
       }
 
@@ -184,11 +184,11 @@ namespace WordsGame.Game
          }
          else
          {
-            // if it is last level and the game is finished then 
+            // if it is the last level and the game is finished then 
             // it call the director for add sprite image of end game
             if (currentLevel == settingsLevel.Count && !endgame)
             {
-               // detach the observers
+               // detach all the sprite 
                endgame = true;
                detachEvents();
                sprites = director.addWin();
@@ -219,13 +219,15 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("Game reload fails due to unexpected error " + ex.Message);
+            Debug.WriteLine("Game reload fails due to unexpected error " + ex.Message);
          }
       }
       #endregion
 
       #region private Method for events 
-      // Detach the events
+      /// <summary>
+      /// Detatch all the events
+      /// </summary>
       private void detachEvents()
       {
          try
@@ -233,7 +235,7 @@ namespace WordsGame.Game
             // Removes the methods that were registered in the MouseOnPress event
             if (MouseOnPress?.GetInvocationList() != null)
             {
-               // Detach all the sprites subscrive at the event
+               //  Detach all the sprites subscribed to the event 
                foreach (var item in MouseOnPress.GetInvocationList())
                {
                   var type = (ISprite)item.Target;
@@ -244,7 +246,7 @@ namespace WordsGame.Game
             // Removes the methods that were registered in the MouseOnPress event
             if (MouseOnRelease?.GetInvocationList() != null)
             {
-               // // Detach all the sprites subscrive at the event
+               //  Detach all the sprites subscribed to the event 
                foreach (var item in MouseOnRelease.GetInvocationList())
                {
                   var type = (ISprite)item.Target;
@@ -258,7 +260,7 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("It was unable to remove events due to an unexpected error: " + ex.Message);
+            Debug.WriteLine("It was unable to remove events due to an unexpected error: " + ex.Message);
          }
       }
       #endregion

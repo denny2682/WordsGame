@@ -7,7 +7,7 @@ using WordsGame.Game.Utility;
 namespace WordsGame.Game
 {
    /// <summary>
-   /// Button 
+   /// Button to reload the level
    /// </summary>
    class ButtonReloadLevel : ImageProxy
    {
@@ -17,7 +17,7 @@ namespace WordsGame.Game
       #endregion
 
       /// <summary>
-      /// Costruttore di una nuova tessera lettera
+      /// Costructor
       /// </summary>
       public ButtonReloadLevel(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
       {
@@ -36,8 +36,12 @@ namespace WordsGame.Game
          return TypeSprite.BtnReloadLevel;
       }
 
-     
-      // Onclick
+
+      /// <summary>
+      /// This method is called on button click
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
       public virtual void Onclick(object sender, EventArgs e)
       {
          if (IsSelectedArea())

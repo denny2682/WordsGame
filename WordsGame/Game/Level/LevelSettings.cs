@@ -14,12 +14,12 @@ namespace WordsGame.Game
       private int rows;
       private int columns;
 
-      public LevelSettings(int settingLevelNumber, int settingMinScore, int settingRow, int SettingColoumn)
+      public LevelSettings(int settingLevelNumber, int settingMinScore, int settingRow, int settingColumn)
       {
          levelNumber = settingLevelNumber;
          minScore = settingMinScore;
          rows = settingRow;
-         columns = SettingColoumn;
+         columns = settingColumn;
       }
 
       /// <summary>

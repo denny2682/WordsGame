@@ -31,16 +31,16 @@ namespace WordsGame.Game
       public List<ISprite> BuildLevel(LevelSettings settings)
       {
          if (settings == null)
-            throw new InvalidDataException("Level settings is not found");
+            throw new InvalidDataException("The level settings were not found");
 
          // Reset Level 
          builder.Reset();
 
          // Title level
          builder.buildText(TypeFont.Arial, "* LIVELLO " + settings.LevelNumber + " * ", 400, 30, new ColorRGB(255, 255, 255, 255));
-         builder.buildBtnReloadLevel(680, 10, new ColorRGB(255, 255, 255, 255));
+         builder.buildReloadLevelBtn(680, 10, new ColorRGB(255, 255, 255, 255));
          
-         builder.buildBtnReloadGame(770, 10, new ColorRGB(255, 255, 255, 255));
+         builder.buildReloadGameBtn(770, 10, new ColorRGB(255, 255, 255, 255));
 
          // Level Description
          builder.buildText(TypeFont.Arial, "Completa il livello ottendo almeno " + settings.MinScore + " punti.", 100, 90, new ColorRGB(255, 255, 255, 255));

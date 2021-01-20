@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Linq;
-
+using System.Diagnostics;
 
 namespace WordsGame.Game
 {
@@ -122,7 +122,7 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("unexpected error: " + ex.Message);
+           Debug.WriteLine("unexpected error: " + ex.Message);
             return null;
          }
       }

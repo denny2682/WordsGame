@@ -24,7 +24,11 @@ namespace WordsGame.Game
       private Matrix globalTransformation;
       int backbufferWidth = 1200;
       int backbufferHeight = 1000;
-      
+
+      // Get state button
+      bool mousePressed = false;
+      bool mouseRelease = false;
+
       // game manager operate on the levels and game logic
       private GameManager gameManager;
 
@@ -135,15 +139,23 @@ namespace WordsGame.Game
       private void HandlesEventsInput(GameTime gameTime)
       {
          // Update the current state of the mouse
-         UserMouseInput.Update();
 
+         MouseState mouseState = Mouse.GetState();
          // Left button clicked
-         if (UserMouseInput.IsLeftDown)
+         if (mouseState.LeftButton == ButtonState.Pressed)
+         {
+            mousePressed = true;
+            mouseRelease = false;
             gameManager.MouseIsLeftDown();
+         }
 
          // Mouse Released 
-         if (UserMouseInput.IsLeftJustReleased)
+         if (mouseState.LeftButton == ButtonState.Released && mousePressed && !mouseRelease)
+         {
+            mouseRelease = true;
+            mousePressed = false;
             gameManager.MouseIsLeftRelease();
+         }
 
          // Poll for current keyboard state
          KeyboardState state = Keyboard.GetState();

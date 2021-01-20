@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using WordsGame.Game.Utility;
+using System.Diagnostics;
 
 namespace WordsGame.Game
 {
@@ -66,7 +67,7 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Console.WriteLine("Unexpected error draw detail message: " + ex.Message);
+            Debug.WriteLine("Unexpected error draw detail message: " + ex.Message);
          }
 
 
