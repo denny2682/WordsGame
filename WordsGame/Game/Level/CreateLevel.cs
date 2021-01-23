@@ -14,13 +14,26 @@ namespace WordsGame.Game
    /// </summary>
    class CreateLevel
    {
+      int widthAreaPresentation;
+      int heightAreaPresentation;
+
+      /// <summary>
+      /// Costructor
+      /// </summary>
+      /// <param name="widthArea"></param>
+      /// <param name="heightArea"></param>
+      public CreateLevel(int widthArea, int heightArea)
+      {
+         widthAreaPresentation = widthArea;
+         heightAreaPresentation = heightArea;
+      }
+      
       private ILevelBuilder builder;
 
       // Set builder
       public ILevelBuilder Builder {
          set { builder = value; }
       }
-
 
       /// <summary>
       /// Build Level 
@@ -35,23 +48,29 @@ namespace WordsGame.Game
 
          // Reset Level 
          builder.Reset();
-
          // Title level
-         builder.buildText(TypeFont.Arial, "* LIVELLO " + settings.LevelNumber + " * ", 400, 30, new ColorRGB(255, 255, 255, 255));
-         builder.buildReloadLevelBtn(680, 10, new ColorRGB(255, 255, 255, 255));
+         builder.buildBackground(0,0, new ColorRGB(255, 255, 255, 255));
+
+         builder.buildTitle(widthAreaPresentation/2-150, 10, "LEVEL " + settings.LevelNumber, new ColorRGB(255, 255, 255, 255));
+        
+         builder.buildReloadLevelBtn(widthAreaPresentation-200, 10, new ColorRGB(255, 255, 255, 255));
          
-         builder.buildReloadGameBtn(770, 10, new ColorRGB(255, 255, 255, 255));
+         builder.buildReloadGameBtn(widthAreaPresentation-200, 100, new ColorRGB(255, 255, 255, 255));
 
-         // Level Description
-         builder.buildText(TypeFont.Arial, "Completa il livello ottendo almeno " + settings.MinScore + " punti.", 100, 90, new ColorRGB(255, 255, 255, 255));
-         builder.buildText(TypeFont.Arial, "Non sono ammesse parole di 2 e 3 lettere", 100, 120, new ColorRGB(255, 255, 255, 255));
-
-         // Letters grid 
-         builder.buildGrid(settings.Rows, settings.Columns, 90, 200);
+         // Centered letter grid
+         builder.buildGridAndDescription(
+            settings.Rows, 
+            settings.Columns, 
+            widthAreaPresentation/2, 170, 
+            new List<string>() {
+               "Completa il livello ottendo almeno " + settings.MinScore + " punti",
+               "Non sono ammesse parole di 2 e 3 lettere"
+         }, 
+            new ColorRGB(255, 255, 255, 255), 
+            TypeFont.Arial);
 
          // Level score
-         builder.buildText(TypeFont.Arial, "Punteggio:", 100, 30, new ColorRGB(255, 255, 255, 255));
-         builder.buildScore(TypeFont.Arial, 250, 30, new ColorRGB(255, 255, 255, 255));
+         builder.buildScore(TypeFont.Arial, 100, 30, new ColorRGB(231, 125, 55, 255));
 
          // Return the objects of type sprite
          return builder.GetSprites();
@@ -64,7 +83,7 @@ namespace WordsGame.Game
       public List<ISprite> addWin()
       {
          if (builder != null)
-            builder.buildWinner(250, 400, new ColorRGB(255, 255, 255, 255));
+            builder.buildWinner(widthAreaPresentation/2-200, 400, new ColorRGB(255, 255, 255, 255));
 
          return builder.GetSprites();
       }

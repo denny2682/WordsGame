@@ -22,7 +22,7 @@ namespace WordsGame.Game
       /// <summary>
       /// Costructor
       /// </summary>
-      public LetterTile(char charLetter, string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
+      public LetterTile(char charLetter, GraphicImageInfo settings, GameManager gameController) : base(settings)
       {
          sequenceSelected = 0;
          letter = charLetter;

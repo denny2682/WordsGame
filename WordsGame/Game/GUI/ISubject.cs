@@ -15,5 +15,8 @@ namespace WordsGame.Game
       Size GetExtent();
       void Draw(SpriteBatch spriteBatch);
       void Draw(SpriteBatch spriteBatch, ColorRGB color);
+      void SetPosition(Coordinate2D coordinate2D);
+      void SetColor(ColorRGB color);
+
    }
 }

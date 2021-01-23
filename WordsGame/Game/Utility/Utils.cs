@@ -31,7 +31,7 @@ namespace WordsGame.Game.Utility
       /// <returns></returns>
       public static Size GetFileSize(string fileName, string rootDirectory)
       {
-         return new Size(90, 90);
+         return new Size(80, 80);
       }
 
       /// <summary>
@@ -49,6 +49,8 @@ namespace WordsGame.Game.Utility
          else
             return false;
       }
+
+    
 
    }
 
@@ -75,6 +77,7 @@ namespace WordsGame.Game.Utility
       Arial,
       Hud
    }
+
    #endregion
 
    #region struct
@@ -93,6 +96,48 @@ namespace WordsGame.Game.Utility
       }
    }
 
+   /// <summary>
+   /// Struct to setting an image on the screen
+   /// </summary>
+   public struct GraphicImageInfo
+   {
+      public string FileName;
+      public Coordinate2D Coordinate;
+      public ColorRGB Color;
+
+      public GraphicImageInfo(string file, Coordinate2D coordinate, ColorRGB color)
+      {
+         FileName = file;
+         Color = color;
+         Coordinate = coordinate;
+      }
+   }
+
+   public struct GraphicFontInfo
+   {
+      public Coordinate2D Coordinate;
+      public ColorRGB Color;
+      public TypeFont Font;
+
+      public GraphicFontInfo(TypeFont typeFont, Coordinate2D coordinate, ColorRGB color)
+      {
+         Color = color;
+         Coordinate = coordinate;
+         Font = typeFont;
+      }
+   }
+
+   public struct Coordinate2D
+   {  
+      public int X;
+      public int Y;
+
+      public Coordinate2D(int x, int y)
+      {
+         X = x;
+         Y = y;
+      }
+   }
    /// <summary>
    /// Struct to define a custom ColorRGB
    /// </summary>

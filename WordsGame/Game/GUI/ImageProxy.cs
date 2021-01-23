@@ -15,22 +15,27 @@ namespace WordsGame.Game
    /// </summary>
    class ImageProxy :  ISprite, ISubject
    {
-      
+      #region private variables
       private Size extent;
-      private string fileNameImg;
+      private ColorRGB color;
+      #endregion
 
-      protected int posX;
-      protected int posY;
+      #region protected variables
+      protected Coordinate2D coordinate;
       protected bool highlight = false;
-      protected ColorRGB color;
       protected Image Image;
+      #endregion
 
-      public ImageProxy(string fileName, int x, int y, ColorRGB colorRGB) // constructor
+      public string sourceFile;
+      /// <summary>
+      /// Constructor
+      /// </summary>
+      /// <param name="settings"></param>
+      public ImageProxy(GraphicImageInfo settings) 
       {
-         fileNameImg = fileName; // local copy of filename
-         posX = x; posY = y;
-         color = colorRGB;
-        
+         coordinate = settings.Coordinate;
+         sourceFile = settings.FileName;
+         color = settings.Color;
       }
 
       /// <summary>
@@ -39,6 +44,24 @@ namespace WordsGame.Game
       public bool Highlight
       {
          get { return highlight; }
+
+      }
+
+      /// <summary>
+      /// Returns coordinate
+      /// </summary>
+      public Coordinate2D Coordinate
+      {
+         get { return coordinate; }
+
+      }
+
+      /// <summary>
+      /// Returns color
+      /// </summary>
+      public ColorRGB Color
+      {
+         get { return color; }
 
       }
 
@@ -58,7 +81,7 @@ namespace WordsGame.Game
       protected Image GetImage()
       {
          if (Image == null)
-           Image = new Image(fileNameImg, posX, posY, color);
+           Image = new Image(new GraphicImageInfo(sourceFile, Coordinate, color));
          return Image;
       }
 
@@ -68,10 +91,8 @@ namespace WordsGame.Game
       /// <returns></returns>
       public Size GetExtent()
       {
-         // Todo:
-         // trovare il modo di sapere in anticipo la larghezza per poterlo istanziare
          if (extent.Height == 0 && extent.Width == 0)
-            extent = Utils.GetFileSize(fileNameImg, WordsGame.Content.RootDirectory);
+            extent = Utils.GetFileSize(sourceFile, WordsGame.Content.RootDirectory);
          return extent;
       }
 
@@ -102,9 +123,30 @@ namespace WordsGame.Game
       /// <returns></returns>
       public bool IsSelectedArea() 
       {
-         return Utils.IntersectRectangle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new Rectangle(posX, posY, GetExtent().Width, GetExtent().Height));
+            return Utils.IntersectRectangle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new Rectangle(Coordinate.X, Coordinate.Y, GetExtent().Width, GetExtent().Height));
       }
 
+      /// <summary>
+      /// Sets position
+      /// </summary>
+      /// <param name="coordinate2D"></param>
+      public void SetPosition(Coordinate2D coordinate2D)
+      {
+         // Sets the position of the real image and current proxyimage 
+         GetImage().SetPosition(coordinate2D);
+         coordinate = coordinate2D;
+      }
+
+      /// <summary>
+      /// Sets color
+      /// </summary>
+      /// <param name="coordinate2D"></param>
+      public void SetColor(ColorRGB colorRGB)
+      {
+         // Sets the position of the real image and current proxyimage 
+         GetImage().SetColor(color);
+         color = colorRGB;
+      }
    }
 
 }

@@ -9,21 +9,17 @@ namespace WordsGame.Game
    /// <summary>
    /// Button new game
    /// </summary>
-   class ButtonReloadGame : ImageProxy
+   class ButtonReloadGame : Button
    {
-      private GameManager gameManager;
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
 
       /// <summary>
       /// Costructur
       /// </summary>
-      public ButtonReloadGame(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
+      public ButtonReloadGame(GraphicImageInfo settings, GameManager game) : base(settings, game)
       {
-         gameManager = gameController;
-
-         // Bind the method to events
-         gameManager.MouseOnReleased += this.Onclick;
       }
+      
 
       /// <summary>
       /// returns the sprite type
@@ -39,10 +35,18 @@ namespace WordsGame.Game
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      public void Onclick(object sender, EventArgs e)
+      protected override void Onclick(object sender, EventArgs e)
       {
-         if (IsSelectedArea())
+         if (this.IsSelectedArea())
             gameManager.ReloadGame();
+      }
+
+      protected override void OnMouseOver(object sender, EventArgs e)
+      {
+         if (this.IsSelectedArea())
+            highlight = true;
+         else
+            highlight = false;
       }
    }
 }

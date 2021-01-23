@@ -19,7 +19,7 @@ namespace WordsGame.Game
       // list of words selected in the level
       private List<string> selectedWordList;
       private ISprite[,] spriteGridLetter;
-
+    
       // Italian alphabet
       private const string letters = "abcdefghilmnopqrstuvz";
       private const string vowels = "aeiou";
@@ -63,8 +63,39 @@ namespace WordsGame.Game
       /// <param name="color">color in Rgb</param>
       public void buildText(TypeFont typeFont, string textView, int x, int y, ColorRGB color = new ColorRGB())
       {
-         Text text = new Text(typeFont, textView, x, y, color);
+         GraphicFontInfo settings = new GraphicFontInfo(typeFont, new Coordinate2D(x, y), color);
+         Text text = new Text(settings, textView);
          sprites.Add(text);
+      }
+
+      /// <summary>
+      /// Build Title
+      /// </summary>
+      /// <param name="x"></param>
+      /// <param name="y"></param>
+      /// <param name="color"></param>
+      /// <param name="text"></param>
+      public void buildTitle(int x, int y, string text, ColorRGB color = new ColorRGB())
+      {
+         GraphicImageInfo settings = new GraphicImageInfo("images/title", new Coordinate2D(x, y), color);
+         ImageProxy title = new ImageProxy(settings);
+         sprites.Add(title);
+         // Title level
+         buildText(TypeFont.Arial, text, x + 110, y + 10, new ColorRGB(255, 255, 255, 255));
+
+      }
+
+      /// <summary>
+      /// Builds title
+      /// </summary>
+      /// <param name="x"></param>
+      /// <param name="y"></param>
+      /// <param name="color"></param>
+      public void buildBackground(int x, int y, ColorRGB color = new ColorRGB())
+      {
+         GraphicImageInfo settings = new GraphicImageInfo("images/bg_alternative", new Coordinate2D(x, y), color);
+         ImageProxy title = new ImageProxy(settings);
+         sprites.Add(title);
       }
 
       /// <summary>
@@ -74,38 +105,55 @@ namespace WordsGame.Game
       /// <param name="column">number column</param>
       /// <param name="posRelx">position x</param>
       /// <param name="posRelY">position y</param>
-      public void buildGrid(int row, int column, int posRelx, int posRelY)
+      public void buildGridAndDescription(int row, int column, int centralpoint, int y, List<string> description, ColorRGB color, TypeFont font)
       {
+         
+         // Calculate central point with Visual distance between the letters
+         int distance = 20;
+         LetterTile ltr = new LetterTile('a',new GraphicImageInfo("Letters/letter-" + 'a', new Coordinate2D(0, 0), new ColorRGB()), game);
+         int posX = centralpoint-(((ltr.GetExtent().Width+distance) * row)/2);
+        
+         // Level Description
+         int posY = y;
+         foreach (var text in description)
+         {
+            buildText(font, text, posX, posY, new ColorRGB(255, 255, 255, 255));
+            posY += 30;
+         }
+
+         // Add distance between  description and grid
+         posY += 30;
          Random rnd = new Random();
          spriteGridLetter = new ISprite[row, column];
-         int posX = posRelx;
+         // Calculate position X
+        
          int width = 0;
          int height = 0;
-
-         // Visual distance between the letters
-         int distance = 20;
 
          // Creates a grid with with the letters of the alphabet
          char[,] letterGrid = createLetterGrid(row, column);
 
          // Builds the grid 
-         for (int x = 0; x < letterGrid.GetLength(0); x++)
+         for (int r = 0; r < letterGrid.GetLength(0); r++)
          {
-            posX += width + distance;
-            int posY = posRelY;
-            for (int y = 0; y < letterGrid.GetLength(1); y++)
+            int posYIncremental = posY;
+
+            for (int c = 0; c < letterGrid.GetLength(1); c++)
             {
-               char letter = letterGrid[x, y];
+               char letter = letterGrid[r, c];
                
                ColorRGB colorWhite = new ColorRGB(255, 255, 255, 255);
-               LetterTile letterTile = new LetterTile(letter,"Letters/letter-" + letter, posX, posY, colorWhite, game);
+               GraphicImageInfo settings = new GraphicImageInfo("Letters/letter-" + letter, new Coordinate2D(posX, posYIncremental), colorWhite);
+               LetterTile letterTile = new LetterTile(letter, settings, game);
                Size size = letterTile.GetExtent();
                width = size.Width;
                height = size.Height;
-               posY += height + distance;
-               spriteGridLetter[x, y] = letterTile;
-               sprites.Add(spriteGridLetter[x, y]);
+               posYIncremental += height + distance;
+               spriteGridLetter[r, c] = letterTile;
+               sprites.Add(spriteGridLetter[r, c]);
             }
+
+            posX += width + distance;
          }
       }
 
@@ -118,8 +166,16 @@ namespace WordsGame.Game
       /// <param name="color">color in Rgb</param>
       public void buildScore(TypeFont typeFont, int x, int y, ColorRGB color = new ColorRGB())
       {
-         Text text = new Text(typeFont, Score.ToString(), x, y, color);
+        
+         GraphicImageInfo settingsimg = new GraphicImageInfo("images/score", new Coordinate2D(x-50, y-10), new ColorRGB(255,255,255,255));
+         ButtonReloadLevel img = new ButtonReloadLevel(settingsimg, game); 
+         
+         GraphicFontInfo settings = new GraphicFontInfo(typeFont, new Coordinate2D(x, y), color);
+         Text text = new Text(settings, Score.ToString());
+         
          scoreSprite = text;
+         
+         sprites.Add(img);
          sprites.Add(text);
       }
 
@@ -132,7 +188,8 @@ namespace WordsGame.Game
       /// <param name="color">color in Rgb</param>
       public void buildReloadLevelBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
-         ButtonReloadLevel btn = new ButtonReloadLevel("images/reload", x, y, color, game);
+         GraphicImageInfo settings = new GraphicImageInfo("images/reload", new Coordinate2D(x, y), color);
+         ButtonReloadLevel btn = new ButtonReloadLevel(settings, game);
          sprites.Add(btn);
       }
 
@@ -145,7 +202,8 @@ namespace WordsGame.Game
       /// <param name="color">color in Rgb</param>
       public void buildReloadGameBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
-         ButtonReloadGame btn = new ButtonReloadGame("images/home-icon", x, y, color, game);
+         GraphicImageInfo settings = new GraphicImageInfo("images/home-icon", new Coordinate2D(x,y), color);
+         ButtonReloadGame btn = new ButtonReloadGame(settings, game);
          sprites.Add(btn);
       }
 
@@ -158,7 +216,8 @@ namespace WordsGame.Game
       /// <param name="color">color in Rgb</param>
       public void buildWinner(int x, int y, ColorRGB color = new ColorRGB())
       {
-         ImageProxy image = new ImageProxy("images/overlay_win", x, y, color);
+         GraphicImageInfo settings = new GraphicImageInfo("images/overlay_win", new Coordinate2D(x, y), color);
+         ImageProxy image = new ImageProxy(settings);
          sprites.Add(image);
       }
 
@@ -206,7 +265,7 @@ namespace WordsGame.Game
             // Updates the score value and update scoreSprite
             score += value;
             if (scoreSprite != null)
-               ((Text)scoreSprite).UpdateText(Score.ToString());
+               ((Text)scoreSprite).ViewText = Score.ToString();
          }
       }
 

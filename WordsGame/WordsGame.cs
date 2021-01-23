@@ -67,7 +67,9 @@ namespace WordsGame.Game
                new LevelSettings(1, 30, 5, 5),
                new LevelSettings(2, 60, 6, 6),
                new LevelSettings(3, 120, 7, 7)
-         });
+         }, backbufferWidth,
+            backbufferHeight
+       );
 
          // Call method initialize XNA
          base.Initialize();
@@ -116,7 +118,7 @@ namespace WordsGame.Game
          List<ISprite> sprites = gameManager.GetCurrentSprite();
 
          // Clear device screen
-         Graphics.GraphicsDevice.Clear(new Color(78, 164, 218, 255));
+         Graphics.GraphicsDevice.Clear(new Color(63, 184, 175, 255));
 
          // Begin sprite batch
          SpriteBatch.Begin();
@@ -156,6 +158,8 @@ namespace WordsGame.Game
             mousePressed = false;
             gameManager.MouseIsLeftRelease();
          }
+
+         gameManager.MouseIsOver();
 
          // Poll for current keyboard state
          KeyboardState state = Keyboard.GetState();

@@ -9,22 +9,18 @@ namespace WordsGame.Game
    /// <summary>
    /// Button to reload the level
    /// </summary>
-   class ButtonReloadLevel : ImageProxy
+   class ButtonReloadLevel : Button
    {
       #region private variables
-      private GameManager gameManager;
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
       #endregion
 
+     
       /// <summary>
       /// Costructor
       /// </summary>
-      public ButtonReloadLevel(string fileName, int x, int y, ColorRGB colorRGB, GameManager gameController) : base(fileName, x, y, colorRGB)
-      {
-         gameManager = gameController;
-
-         // Bind the method to events
-         gameManager.MouseOnReleased += this.Onclick;
+      public ButtonReloadLevel(GraphicImageInfo settings, GameManager gameManager) : base(settings, gameManager)
+      { 
       }
 
       /// <summary>
@@ -42,10 +38,23 @@ namespace WordsGame.Game
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      public virtual void Onclick(object sender, EventArgs e)
+      protected override void Onclick(object sender, EventArgs e)
       {
          if (IsSelectedArea())
             gameManager.ReloadLevel();
+      }
+
+      /// <summary>
+      /// This method is called on mouse is over
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      protected override void OnMouseOver(object sender, EventArgs e)
+      {
+         if (this.IsSelectedArea())
+            highlight = true;
+         else
+            highlight = false;
       }
    }
 }

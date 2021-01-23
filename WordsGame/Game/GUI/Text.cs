@@ -9,49 +9,50 @@ using System.Diagnostics;
 
 namespace WordsGame.Game
 {
-  
+
    /// <summary>
    /// Defines a class to show text in the screen
    /// </summary>
    public class Text : ISprite
    {
-      #region private variables
-      // Color and type font
-      private ColorRGB colorText; 
-      private TypeFont font;
-      #endregion
-
       #region public variables
-      public int PosX;
-      public int PosY;
-      public string ViewText;
+      public string ViewText { get; set; }
+      public ColorRGB ColorText { get; set; }
+      public Coordinate2D Coordinate { get; set; }
+      public TypeFont Font { get; set; }
       #endregion
-
 
       /// <summary>
+      /// Costructor
       /// Defines a text sprite 
       /// </summary>
-      /// <param name="typeFont"></param>
+      /// <param name="graphicFontInfo"></param>
       /// <param name="text"></param>
-      /// <param name="x"></param>
-      /// <param name="y"></param>
-      /// <param name="color"> color is optional </param>
-      public Text(TypeFont typeFont, string text, int x, int y, ColorRGB color = new ColorRGB())
+      public Text(GraphicFontInfo settings, string text)
       {
-         font = typeFont;
+         Coordinate = settings.Coordinate;
          ViewText = text;
-         PosX = x;
-         PosY = y;
-         colorText = color;
+         Font = settings.Font;
+         ColorText = settings.Color;
       }
 
+      #region public methods
       /// <summary>
-      /// Type sprite
+      /// Sprite type
       /// </summary>
       /// <returns></returns>
       public TypeSprite GetTypeSprite()
       {
          return TypeSprite.Text;
+      }
+
+      /// <summary>
+      /// Updates the text
+      /// </summary>
+      /// <param name="text"></param>
+      public void UpdateText(string text)
+      {
+         ViewText = text;
       }
 
       /// <summary>
@@ -62,29 +63,22 @@ namespace WordsGame.Game
       {
          try
          {
-            SpriteFont spriteFont = WordsGame.Content.Load<SpriteFont>("Fonts/" + font.ToString());
-            spriteBatch.DrawString(spriteFont, ViewText, new Vector2(PosX, PosY), Utils.GetColorXNA(colorText));
+            SpriteFont spriteFont = WordsGame.Content.Load<SpriteFont>("Fonts/" + Font.ToString());
+            spriteBatch.DrawString(spriteFont, ViewText, new Vector2(Coordinate.X, Coordinate.Y), Utils.GetColorXNA(ColorText));
          }
          catch (Exception ex)
          {
-            Debug.WriteLine("Unexpected error draw detail message: " + ex.Message);
+            throw new Exception("Unexpected error draw detail message: " + ex.Message);
          }
-
-
-
-
       }
+      #endregion
 
-      public void UpdateText(string text)
-      {
-         ViewText = text;
-      }
 
-     
+
    }
 
 
-   
+
 
 
 }

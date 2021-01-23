@@ -14,5 +14,6 @@ namespace WordsGame.Game
    {
       void Draw(SpriteBatch spriteBatch);
       TypeSprite GetTypeSprite();
+
    }
 }

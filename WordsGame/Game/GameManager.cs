@@ -24,7 +24,9 @@ namespace WordsGame.Game
       private Level level;
       private CreateLevel director;
       private int currentLevel;
-      private List<ISprite> sprites; 
+      private List<ISprite> sprites;
+      private int widthPresentationArea;
+      private int heightPresentationArea;
       private bool endgame;
       private List<LevelSettings> settingsLevel;
       #endregion
@@ -32,14 +34,17 @@ namespace WordsGame.Game
       /// <summary>
       /// Create new level and start the game
       /// </summary>
-      public GameManager(List<LevelSettings> settings)
+      public GameManager(List<LevelSettings> settings, int widthScreen, int heightScreen)
       {
          endgame = false;
 
          currentLevel = -1;
 
          // Pattern Builder: Create Director
-         director = new CreateLevel();
+         director = new CreateLevel(widthScreen, heightScreen);
+
+         widthPresentationArea = widthScreen;
+         heightPresentationArea = heightScreen;
 
          settingsLevel = settings;
 
@@ -57,6 +62,7 @@ namespace WordsGame.Game
       // Events call sprite-specific methods
       public event EventHandler MouseOnPressed;
       public event EventHandler MouseOnReleased;
+      public event EventHandler MouseOnOver;
       #endregion
 
       /// <summary>
@@ -114,6 +120,15 @@ namespace WordsGame.Game
          if (MouseOnReleased != null)
          {
             MouseOnReleased(this, new EventArgs());
+         }
+
+      }
+
+      public void MouseIsOver()
+      {
+         if (MouseOnOver != null)
+         {
+            MouseOnOver(this, new EventArgs());
          }
 
       }
@@ -254,6 +269,21 @@ namespace WordsGame.Game
                       (type.GetTypeSprite() == TypeSprite.BtnReloadGame && !endgame))
                   {
                      MouseOnReleased -= (EventHandler)item;
+                  }
+               }
+            }
+
+            // Removes the methods that were registered in the MouseOnOver event
+            if (MouseOnOver?.GetInvocationList() != null)
+            {
+               //  Detach all the sprites subscribed to the event 
+               foreach (var item in MouseOnOver.GetInvocationList())
+               {
+                  var type = (ISprite)item.Target;
+                  if ((type.GetTypeSprite() != TypeSprite.BtnReloadGame) ||
+                      (type.GetTypeSprite() == TypeSprite.BtnReloadGame && !endgame))
+                  {
+                     MouseOnOver -= (EventHandler)item;
                   }
                }
             }

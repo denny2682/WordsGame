@@ -16,12 +16,11 @@ namespace WordsGame.Game
       #region private variables
       // Xna texture2D
       private Texture2D texture;
-      private int posX;
-      private int posY;
+      private Coordinate2D coordinate;
       #endregion region
 
       #region public variables
-      public ColorRGB Color{ get; set; }
+      public ColorRGB Color { get; set; }
       #endregion
 
       /// <summary>
@@ -31,26 +30,35 @@ namespace WordsGame.Game
       /// <param name="x"></param>
       /// <param name="y"></param>
       /// <param name="colorRGB"></param>
-      public Image(string fileName, int x, int y, ColorRGB colorRGB)
+      public Image(GraphicImageInfo settings)
       {
-         posX = x; posY = y;
-         texture = WordsGame.Content.Load<Texture2D>(fileName);
-         Color = colorRGB;
+         coordinate = settings.Coordinate;
+         texture = WordsGame.Content.Load<Texture2D>(settings.FileName);
+         Color = settings.Color;
       }
 
       /// <summary>
-      /// get position x 
+      /// Gets coordinate 
       /// </summary>
-      public int PosX { 
-         get { return posX;  } 
+      public Coordinate2D Coordinate
+      {
+         get { return coordinate; }
       }
 
       /// <summary>
-      /// Get position y
+      /// Sets coordinate 
       /// </summary>
-      public int PosY
+      public void SetPosition(Coordinate2D coordinate2D)
       {
-         get { return posY; }
+         coordinate = coordinate2D;
+      }
+
+      /// <summary>
+      /// Sets Color 
+      /// </summary>
+      public void SetColor(ColorRGB color)
+      {
+         Color = color;
       }
 
       /// <summary>
@@ -68,7 +76,7 @@ namespace WordsGame.Game
       /// <param name="spriteBatch"></param>
       public void Draw(ref SpriteBatch spriteBatch)
       {
-         spriteBatch.Draw(texture, new Vector2(PosX, PosY), null, Utils.GetColorXNA(Color), 0f, Vector2.Zero, 0.9f, SpriteEffects.None, 0f);
+         spriteBatch.Draw(texture, new Vector2(Coordinate.X, Coordinate.Y), null, Utils.GetColorXNA(Color), 0f, Vector2.Zero, 0.9f, SpriteEffects.None, 0f);
       }
 
       /// <summary>
@@ -78,7 +86,7 @@ namespace WordsGame.Game
       /// <param name="color"></param>
       public void Draw(ref SpriteBatch spriteBatch, ColorRGB color)
       {
-         spriteBatch.Draw(texture, new Vector2(PosX, PosY), null, Utils.GetColorXNA(color), 0f, Vector2.Zero, 0.9f, SpriteEffects.None, 0f);
+         spriteBatch.Draw(texture, new Vector2(coordinate.X, coordinate.Y), null, Utils.GetColorXNA(color), 0f, Vector2.Zero, 0.9f, SpriteEffects.None, 0f);
       }
    }
 
