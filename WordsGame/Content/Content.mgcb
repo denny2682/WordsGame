@@ -30,18 +30,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Hud.spritefont
 
-#begin Images/background_level.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/background_level.png
-
 #begin Images/bg_alternative.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -65,18 +53,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Home-icon.png
-
-#begin Images/Home-icon-Reload.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/Home-icon-Reload.png
 
 #begin Images/overlay_win.png
 /importer:TextureImporter

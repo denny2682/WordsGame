@@ -78,10 +78,11 @@ namespace WordsGame.Game
          builder.buildGridAndDescription(
             settings.Rows, 
             settings.Columns, 
-            widthAreaPresentation/2, 170, 
+            widthAreaPresentation/2, 150, 
             new List<string>() {
-               "Completa il livello ottendo almeno " + settings.MinScore + " punti",
-               "Non sono ammesse parole di 2 e 3 lettere"
+               "Completa il livello ottendo almeno " + settings.MinScore + " punti.",
+               "Componi parole di almeno 4 lettere.",
+               "Se vuoi uscire dal gioco premi ESC"
          }, 
             new ColorRGB(255, 255, 255, 255), 
             TypeFont.Arial);
