@@ -8,7 +8,7 @@ using WordsGame.Game.Utility;
 namespace WordsGame.Game
 {
    /// <summary>
-   /// Interface for all the objects of type sprite
+   /// Interface for all sprite type objects
    /// </summary>
    public interface ISprite
    {

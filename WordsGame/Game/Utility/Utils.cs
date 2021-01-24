@@ -80,7 +80,8 @@ namespace WordsGame.Game.Utility
 
    #endregion
 
-   #region struct
+   #region structs
+
    /// <summary>
    /// Struct to define width and height
    /// </summary>
@@ -97,7 +98,7 @@ namespace WordsGame.Game.Utility
    }
 
    /// <summary>
-   /// Struct to setting an image on the screen
+   /// Struct to set an image on the screen
    /// </summary>
    public struct GraphicImageInfo
    {
@@ -113,6 +114,9 @@ namespace WordsGame.Game.Utility
       }
    }
 
+   /// <summary>
+   /// Struct to set a text on the screen
+   /// </summary>
    public struct GraphicFontInfo
    {
       public Coordinate2D Coordinate;
@@ -127,6 +131,9 @@ namespace WordsGame.Game.Utility
       }
    }
 
+   /// <summary>
+   /// Struct to set a coordinate
+   /// </summary>
    public struct Coordinate2D
    {  
       public int X;
@@ -156,6 +163,7 @@ namespace WordsGame.Game.Utility
          A = a;
       }
    }
+
    #endregion
 
 }

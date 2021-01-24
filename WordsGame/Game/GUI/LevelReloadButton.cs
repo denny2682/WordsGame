@@ -3,33 +3,43 @@ using System.Collections.Generic;
 using System.Text;
 using WordsGame.Game.Utility;
 
+
 namespace WordsGame.Game
 {
-   
    /// <summary>
-   /// Button new game
+   /// Level reload button
    /// </summary>
-   class ButtonReloadGame : Button
+   class LevelReloadButton : Button
    {
+      #region private variables
+
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
 
-      /// <summary>
-      /// Costructur
-      /// </summary>
-      public ButtonReloadGame(GraphicImageInfo settings, GameManager game) : base(settings, game)
-      {
-      }
-      
+      #endregion
+
 
       /// <summary>
-      /// returns the sprite type
+      /// Costructor
+      /// </summary>
+      /// <param name="settings"></param>
+      /// <param name="gameManager"></param>
+      public LevelReloadButton(GraphicImageInfo settings, GameManager gameManager) : base(settings, gameManager) { }
+
+      #region public methods
+
+      /// <summary>
+      /// Returns the sprite type
       /// </summary>
       /// <returns></returns>
       public override TypeSprite GetTypeSprite()
       {
-         return TypeSprite.BtnReloadGame;
+         return TypeSprite.BtnReloadLevel;
       }
 
+      #endregion
+
+      #region protected methods
+      
       /// <summary>
       /// This method is called on button click
       /// </summary>
@@ -37,10 +47,15 @@ namespace WordsGame.Game
       /// <param name="e"></param>
       protected override void Onclick(object sender, EventArgs e)
       {
-         if (this.IsSelectedArea())
-            gameManager.ReloadGame();
+         if (IsSelectedArea())
+            gameManager.ReloadLevel();
       }
 
+      /// <summary>
+      /// This method is called on mouse is over
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
       protected override void OnMouseOver(object sender, EventArgs e)
       {
          if (this.IsSelectedArea())
@@ -48,5 +63,7 @@ namespace WordsGame.Game
          else
             highlight = false;
       }
+
+      #endregion
    }
 }

@@ -13,25 +13,37 @@ namespace WordsGame.Game
    /// </summary>
    public class GlobalWordsContainer
    {
+      #region private variables
+
       private static GlobalWordsContainer istance = null;
       private List<string> wordsDictionary = null;
+      
+      #endregion
 
-      // Costruttore
+      /// <summary>
+      /// Costructor
+      /// </summary>
       protected GlobalWordsContainer() { }
+
+      #region public methods
+
+      /// <summary>
+      /// Returns the GlobalWordsContainer Istance
+      /// </summary>
       public static GlobalWordsContainer Istance
       {
-         // instance can only be returned, but not assigned from outside
          get
          {
             if (istance == null)
                istance = new GlobalWordsContainer();
 
+            // instance can only be returned, but not assigned from outside
             return istance;
          }
       }
 
       /// <summary>
-      /// Returns the dictionary of words
+      /// Returns the words dictionary
       /// </summary>
       public List<string> WordsDictionary
       {
@@ -51,9 +63,13 @@ namespace WordsGame.Game
          return wordsDictionary;
       }
 
+      #endregion
+
+
+      #region private methods
 
       /// <summary>
-      /// Returns the dictionary words
+      /// Loads all words in the dictionary file into a list
       /// </summary>
       /// <param name="fileStream">fileStream</param>
       /// <returns>List<string></returns>
@@ -77,55 +93,18 @@ namespace WordsGame.Game
             }
             else
             {
-               throw new Exception("Dictionary file was not found");
-               // todo: inserire throw exeption}
+               // exception File not found
+               throw new FileNotFoundException("Dictionary file was not found");
             }
             return lines;
          }
          catch (Exception ex)
          {
-            throw new Exception("File Dictionary is not readable");
-            return null;
+            throw new Exception("An exception occurred while reading the file " + ex.Message);
          }
       }
 
-      /// <summary>
-      /// Returns a random word
-      /// </summary>
-      /// <param name="minLenght"></param>
-      /// <param name="maxLenght"></param>
-      /// <param name="maxWords"></param>
-      /// <returns></returns>
-      public List<string> GetExtractWords(int minLenght, int maxLenght, int maxWords)
-      {
-         try
-         {
-            Random rnd = new Random();
-            List<string> lines = new List<string>();
-            if (wordsDictionary != null && maxWords < wordsDictionary.Count())
-            {
-               var words = wordsDictionary.ToArray();
-               int lenght = wordsDictionary.Count();
-               int count = 0;
-
-               while (count <= maxWords)
-               {
-                  string word = words[rnd.Next(lenght)];
-                  if (!lines.Contains(word) && word.Length >= minLenght && word.Length <= maxLenght)
-                  {
-                     lines.Add(word);
-                     count++;
-                  }
-               }
-            }
-            return lines;
-         }
-         catch (Exception ex)
-         {
-           Debug.WriteLine("unexpected error: " + ex.Message);
-            return null;
-         }
-      }
+      #endregion
    }
 
 

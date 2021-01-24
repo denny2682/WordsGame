@@ -12,37 +12,44 @@ namespace WordsGame.Game
    class LetterTile : ImageProxy
    {
       #region private variables
+
       private int value;
       private long sequenceSelected;
       private GameManager gameManager;
       private char letter;
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
+      
       #endregion
 
       /// <summary>
       /// Costructor
       /// </summary>
+      /// <param name="charLetter"></param>
+      /// <param name="settings"></param>
+      /// <param name="gameController"></param>
       public LetterTile(char charLetter, GraphicImageInfo settings, GameManager gameController) : base(settings)
       {
          sequenceSelected = 0;
          letter = charLetter;
          value = getValue(letter);
 
-         // Bind the method to events
+         // Binds the method to events
          gameManager = gameController;
          gameManager.MouseOnPressed += this.OnSelected;
          gameManager.MouseOnReleased += this.OnReleaseSelection;
       }
 
+      #region public variables
+      
       /// <summary>
-      /// return value of letter
+      /// Returns value of letter
       /// </summary>
       public int Value {
          get { return value; }
       }
 
       /// <summary>
-      /// return DateTime.Now.Ticks
+      /// Returns DateTime.Now.Ticks
       /// </summary>
       public long SequenceSelected
       {
@@ -50,69 +57,32 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// returns the letter of the alphabet
+      /// Returns the letter of the alphabet
       /// </summary>
       public char Letter
       {
          get { return letter; }
       }
+      
+      #endregion
+
+      #region public methods
 
       /// <summary>
-      /// return Type sprite
+      /// Returns the type sprite
       /// </summary>
       /// <returns></returns>
       public override TypeSprite GetTypeSprite()
       {
          return TypeSprite.Letter;
       }
- 
+
       /// <summary>
-      /// Return the value of the letter
+      ///Returns the frequency of a letter in Italian
       /// </summary>
       /// <param name="letter"></param>
       /// <returns></returns>
-      private int getValue(char letter)
-      {
-         int value = 0;
-
-         switch (char.ToUpper(letter))
-         {
-            case 'B':
-            case 'D':
-            case 'F':
-            case 'G':
-            case 'U':
-            case 'V':
-               value = 4;
-               break;
-            case 'H':
-            case 'Z':
-               value = 8;
-               break;
-            case 'P':
-               value = 3;
-               break;
-            case 'L':
-            case 'M':
-            case 'N':
-               value = 2;
-               break;
-            case 'Q':
-               value = 10;
-               break;
-            default:
-               value = 1;
-               break;
-         }
-         return value;
-      }
-
-      /// <summary>
-      /// return the frequency 
-      /// </summary>
-      /// <param name="letter"></param>
-      /// <returns></returns>
-      public static double getAnalisysExtractLangueIT(char letter)
+      public static double GetFrequencyItalianLanguage(char letter)
       {
          double frequence = 0;
          switch (char.ToUpper(letter))
@@ -194,11 +164,11 @@ namespace WordsGame.Game
          if (this.IsSelectedArea())
          {
             base.highlight = true;
-            
+
             long date = DateTime.Now.Ticks;
             if (sequenceSelected == 0)
                sequenceSelected = date;
-            
+
 
          }
       }
@@ -213,6 +183,53 @@ namespace WordsGame.Game
          base.highlight = false;
          sequenceSelected = 0;
       }
+
+      #endregion
+
+      #region private methods
+
+      /// <summary>
+      /// Returns the value of the letter
+      /// </summary>
+      /// <param name="letter"></param>
+      /// <returns></returns>
+      private int getValue(char letter)
+      {
+         int value = 0;
+
+         switch (char.ToUpper(letter))
+         {
+            case 'B':
+            case 'D':
+            case 'F':
+            case 'G':
+            case 'U':
+            case 'V':
+               value = 4;
+               break;
+            case 'H':
+            case 'Z':
+               value = 8;
+               break;
+            case 'P':
+               value = 3;
+               break;
+            case 'L':
+            case 'M':
+            case 'N':
+               value = 2;
+               break;
+            case 'Q':
+               value = 10;
+               break;
+            default:
+               value = 1;
+               break;
+         }
+         return value;
+      }
+
+      #endregion
 
    }
 }

@@ -21,14 +21,21 @@ namespace WordsGame.Game
    public class GameManager
    {
       #region variables private
+
+      // levels
       private Level level;
       private CreateLevel director;
       private int currentLevel;
+      private List<LevelSettings> settingsLevel;
       private List<ISprite> sprites;
+
+      // Presentation area
       private int widthPresentationArea;
       private int heightPresentationArea;
+
+      // Finale state of the game
       private bool endgame;
-      private List<LevelSettings> settingsLevel;
+
       #endregion
 
       /// <summary>
@@ -59,11 +66,15 @@ namespace WordsGame.Game
       }
 
       #region public variables
+
       // Events call sprite-specific methods
       public event EventHandler MouseOnPressed;
       public event EventHandler MouseOnReleased;
       public event EventHandler MouseOnOver;
+      
       #endregion
+
+      #region public methods
 
       /// <summary>
       /// This method update the current level and the score.
@@ -102,7 +113,8 @@ namespace WordsGame.Game
       }
 
 
-      #region Methods for mouse events
+      #region public methods for event calls
+
       /// <summary>
       /// Intercept the click of the mouse
       /// </summary>
@@ -111,6 +123,7 @@ namespace WordsGame.Game
          if (MouseOnPressed != null)
             MouseOnPressed(this, new EventArgs());
       }
+
       /// <summary>
       /// Intercept the release of the mouse
       /// </summary>
@@ -124,22 +137,26 @@ namespace WordsGame.Game
 
       }
 
+      /// <summary>
+      /// intercepts the mouse hover
+      /// </summary>
       public void MouseIsOver()
       {
          if (MouseOnOver != null)
-         {
             MouseOnOver(this, new EventArgs());
-         }
-
       }
-      #endregion
+
+      #endregion public methods for event calls
+
+      #endregion public methods
 
 
       #region Private methods for the level
+
       /// <summary>
       /// Get the current level in Game
       /// </summary>
-      /// <returns></returns>
+      /// <returns>settings</returns>
       private LevelSettings getLevelSettings()
       {
          LevelSettings settings = null;
@@ -176,11 +193,9 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Debug.WriteLine("Create Level is failed!");
+            throw new Exception("Create Level is failed!");
          }
       }
-
-      
 
       /// <summary>
       /// if the level has been passed, it goes to the next one, 
@@ -234,12 +249,14 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
-            Debug.WriteLine("Game reload fails due to unexpected error " + ex.Message);
+            throw new Exception("Game reload fails due to unexpected error " + ex.Message);
          }
       }
+      
       #endregion
 
       #region private Method for events 
+      
       /// <summary>
       /// Detatch all the events
       /// </summary>
@@ -290,9 +307,11 @@ namespace WordsGame.Game
          }
          catch (Exception ex)
          {
+            // This exception is not blocking
             Debug.WriteLine("It was unable to remove events due to an unexpected error: " + ex.Message);
          }
       }
+      
       #endregion
 
    }

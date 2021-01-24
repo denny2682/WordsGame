@@ -3,36 +3,43 @@ using System.Collections.Generic;
 using System.Text;
 using WordsGame.Game.Utility;
 
-
 namespace WordsGame.Game
 {
+
    /// <summary>
-   /// Button to reload the level
+   /// Game reload button
    /// </summary>
-   class ButtonReloadLevel : Button
+   class GameReloadButton : Button
    {
       #region private variables
+
       private readonly ColorRGB colorSelected = new ColorRGB(161, 096, 255, 255);
+
       #endregion
 
-     
       /// <summary>
       /// Costructor
       /// </summary>
-      public ButtonReloadLevel(GraphicImageInfo settings, GameManager gameManager) : base(settings, gameManager)
-      { 
-      }
+      /// <param name="settings"></param>
+      /// <param name="game"></param>
+      public GameReloadButton(GraphicImageInfo settings, GameManager game) : base(settings, game) { }
+      
+      #region public methods
 
       /// <summary>
-      /// Returns the sprite type
+      /// returns the sprite type
       /// </summary>
       /// <returns></returns>
       public override TypeSprite GetTypeSprite()
       {
-         return TypeSprite.BtnReloadLevel;
+         return TypeSprite.BtnReloadGame;
       }
 
+      #endregion
 
+
+      #region protected methods
+      
       /// <summary>
       /// This method is called on button click
       /// </summary>
@@ -40,8 +47,8 @@ namespace WordsGame.Game
       /// <param name="e"></param>
       protected override void Onclick(object sender, EventArgs e)
       {
-         if (IsSelectedArea())
-            gameManager.ReloadLevel();
+         if (this.IsSelectedArea())
+            gameManager.ReloadGame();
       }
 
       /// <summary>
@@ -56,5 +63,7 @@ namespace WordsGame.Game
          else
             highlight = false;
       }
+
+      #endregion
    }
 }

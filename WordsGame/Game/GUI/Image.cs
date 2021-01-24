@@ -14,28 +14,32 @@ namespace WordsGame.Game
    class Image
    {
       #region private variables
+
       // Xna texture2D
       private Texture2D texture;
+      
+      // Coordinate
       private Coordinate2D coordinate;
+      
       #endregion region
-
-      #region public variables
-      public ColorRGB Color { get; set; }
-      #endregion
 
       /// <summary>
       /// Costructor
       /// </summary>
-      /// <param name="fileName"></param>
-      /// <param name="x"></param>
-      /// <param name="y"></param>
-      /// <param name="colorRGB"></param>
+      /// <param name="settings"></param>
       public Image(GraphicImageInfo settings)
       {
          coordinate = settings.Coordinate;
          texture = WordsGame.Content.Load<Texture2D>(settings.FileName);
          Color = settings.Color;
       }
+
+      #region public variables
+
+      /// <summary>
+      /// color attribute
+      /// </summary>
+      public ColorRGB Color { get; set; }
 
       /// <summary>
       /// Gets coordinate 
@@ -44,6 +48,10 @@ namespace WordsGame.Game
       {
          get { return coordinate; }
       }
+
+      #endregion
+
+      #region public methods
 
       /// <summary>
       /// Sets coordinate 
@@ -54,7 +62,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Sets Color 
+      /// Sets the color 
       /// </summary>
       public void SetColor(ColorRGB color)
       {
@@ -62,7 +70,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Get size real
+      /// Get the real size
       /// </summary>
       /// <returns></returns>
       public Size GetExtent()
@@ -71,7 +79,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      ///  Draws in the spritebatch
+      ///  Draw inside the spritebatch
       /// </summary>
       /// <param name="spriteBatch"></param>
       public void Draw(ref SpriteBatch spriteBatch)
@@ -80,7 +88,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Draws in the spritebatch with the specific color
+      /// Draw inside the spritebatch with the specific color
       /// </summary>
       /// <param name="spriteBatch"></param>
       /// <param name="color"></param>
@@ -88,6 +96,8 @@ namespace WordsGame.Game
       {
          spriteBatch.Draw(texture, new Vector2(coordinate.X, coordinate.Y), null, Utils.GetColorXNA(color), 0f, Vector2.Zero, 0.9f, SpriteEffects.None, 0f);
       }
+
+      #endregion
    }
 
 

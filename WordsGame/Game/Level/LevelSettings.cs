@@ -9,10 +9,22 @@ namespace WordsGame.Game
    /// </summary>
    public class LevelSettings
    {
+      #region private variables
+
       private int levelNumber;
       private int minScore;
       private int rows;
       private int columns;
+
+      #endregion
+
+      /// <summary>
+      /// Costructor
+      /// </summary>
+      /// <param name="settingLevelNumber"></param>
+      /// <param name="settingMinScore"></param>
+      /// <param name="settingRow"></param>
+      /// <param name="settingColumn"></param>
 
       public LevelSettings(int settingLevelNumber, int settingMinScore, int settingRow, int settingColumn)
       {
@@ -21,6 +33,8 @@ namespace WordsGame.Game
          rows = settingRow;
          columns = settingColumn;
       }
+
+      #region public variables
 
       /// <summary>
       /// Number of level
@@ -54,5 +68,6 @@ namespace WordsGame.Game
          get { return columns; }
       }
 
+      #endregion
    }
 }

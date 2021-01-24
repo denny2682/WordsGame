@@ -10,34 +10,44 @@ namespace WordsGame.Game
    /// </summary>
    abstract class Button : ImageProxy
    {
+      #region protected variables
+
       protected GameManager gameManager;
-      public Button(GraphicImageInfo settings, GameManager game):base(settings)
+
+      #endregion
+
+      public Button(GraphicImageInfo settings, GameManager game) : base(settings)
       {
-        gameManager = game;
+         gameManager = game;
          addEventOnClick(game);
          addEventOnMouseOver(game);
       }
 
-      protected virtual void  Onclick(object sender, EventArgs e) { }
+      #region protected methods 
+
+      protected virtual void Onclick(object sender, EventArgs e) { }
       protected virtual void OnMouseOver(object sender, EventArgs e) { }
-      private void addEventOnClick(GameManager game)
+
+      protected void addEventOnClick(GameManager game)
       {
          game.MouseOnReleased += this.Onclick;
       }
 
-      private void addEventOnMouseOver(GameManager game)
+      protected void addEventOnMouseOver(GameManager game)
       {
          game.MouseOnOver += this.OnMouseOver;
       }
-
-      private void RemoveEventOnClick(GameManager game)
+      
+      protected void RemoveEventOnClick(GameManager game)
       {
          game.MouseOnReleased -= this.Onclick;
       }
 
-      private void RemoveEventOnMouseOver(GameManager game)
+      protected void RemoveEventOnMouseOver(GameManager game)
       {
          game.MouseOnReleased -= this.Onclick;
       }
+
+      #endregion
    }
 }

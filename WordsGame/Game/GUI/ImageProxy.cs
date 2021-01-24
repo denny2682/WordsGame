@@ -13,33 +13,43 @@ namespace WordsGame.Game
    /// <summary>
    /// Pattern Proxy: role proxy
    /// </summary>
-   class ImageProxy :  ISprite, ISubject
+   class ImageProxy : ISprite, ISubject
    {
       #region private variables
+
       private Size extent;
       private ColorRGB color;
+      
       #endregion
 
       #region protected variables
+
       protected Coordinate2D coordinate;
       protected bool highlight = false;
       protected Image Image;
+      
       #endregion
 
-      public string sourceFile;
       /// <summary>
       /// Constructor
       /// </summary>
       /// <param name="settings"></param>
-      public ImageProxy(GraphicImageInfo settings) 
+      public ImageProxy(GraphicImageInfo settings)
       {
          coordinate = settings.Coordinate;
          sourceFile = settings.FileName;
          color = settings.Color;
       }
 
+      #region public variables
+
       /// <summary>
-      /// Return if selected element
+      /// File name
+      /// </summary>
+      public string sourceFile;
+
+      /// <summary>
+      /// Return if the image was selected
       /// </summary>
       public bool Highlight
       {
@@ -48,12 +58,11 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Returns coordinate
+      /// Returns the x and y coordinates
       /// </summary>
       public Coordinate2D Coordinate
       {
          get { return coordinate; }
-
       }
 
       /// <summary>
@@ -62,11 +71,14 @@ namespace WordsGame.Game
       public ColorRGB Color
       {
          get { return color; }
-
       }
 
+      #endregion
+
+      #region public methods
+
       /// <summary>
-      /// return sprite type
+      /// Returns the sprite type
       /// </summary>
       /// <returns></returns>
       public virtual TypeSprite GetTypeSprite()
@@ -75,18 +87,7 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Get real image
-      /// </summary>
-      /// <returns></returns>
-      protected Image GetImage()
-      {
-         if (Image == null)
-           Image = new Image(new GraphicImageInfo(sourceFile, Coordinate, color));
-         return Image;
-      }
-
-      /// <summary>
-      /// Return size calculate
+      /// Returns the size calculated
       /// </summary>
       /// <returns></returns>
       public Size GetExtent()
@@ -100,7 +101,7 @@ namespace WordsGame.Game
       /// Draws in the spritebatch
       /// </summary>
       /// <param name="spriteBatch"></param>
-      public void Draw(SpriteBatch spriteBatch) 
+      public void Draw(SpriteBatch spriteBatch)
       {
          if (highlight)
             GetImage().Draw(ref spriteBatch, new ColorRGB(161, 096, 255, 100));
@@ -112,22 +113,23 @@ namespace WordsGame.Game
       /// Draws in the spritebatch with the specific color
       /// </summary>
       /// <param name="spriteBatch"></param>
+      /// <param name="color"></param>
       public void Draw(SpriteBatch spriteBatch, ColorRGB color)
       {
          GetImage().Draw(ref spriteBatch, color);
       }
 
       /// <summary>
-      /// returns true if it is in the pointer area
+      /// Returns true if it is in the pointer area
       /// </summary>
       /// <returns></returns>
-      public bool IsSelectedArea() 
+      public bool IsSelectedArea()
       {
-            return Utils.IntersectRectangle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new Rectangle(Coordinate.X, Coordinate.Y, GetExtent().Width, GetExtent().Height));
+         return Utils.IntersectRectangle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new Rectangle(Coordinate.X, Coordinate.Y, GetExtent().Width, GetExtent().Height));
       }
 
       /// <summary>
-      /// Sets position
+      /// Sets the position
       /// </summary>
       /// <param name="coordinate2D"></param>
       public void SetPosition(Coordinate2D coordinate2D)
@@ -138,15 +140,33 @@ namespace WordsGame.Game
       }
 
       /// <summary>
-      /// Sets color
+      /// Sets the color
       /// </summary>
-      /// <param name="coordinate2D"></param>
+      /// <param name="colorRGB"></param>
       public void SetColor(ColorRGB colorRGB)
       {
          // Sets the position of the real image and current proxyimage 
          GetImage().SetColor(color);
          color = colorRGB;
       }
+
+      #endregion
+
+      #region protected methods
+      
+      /// <summary>
+      /// Gets the real image
+      /// </summary>
+      /// <returns></returns>
+      protected Image GetImage()
+      {
+         if (Image == null)
+            Image = new Image(new GraphicImageInfo(sourceFile, Coordinate, color));
+         return Image;
+      }
+
+      #endregion
+
    }
 
 }

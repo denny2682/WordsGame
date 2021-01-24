@@ -15,8 +15,9 @@ namespace WordsGame.Game
       #region private variables
 
       private int score = 0;
-      private List<ISprite> sprites;
-      // list of words selected in the level
+      private ISprite scoreSprite = null;
+      
+      // Llist of words selected in the level
       private List<string> selectedWordList;
       private ISprite[,] spriteGridLetter;
     
@@ -24,8 +25,14 @@ namespace WordsGame.Game
       private const string letters = "abcdefghilmnopqrstuvz";
       private const string vowels = "aeiou";
 
+      // Game manager
       private GameManager game;
-      private ISprite scoreSprite = null;
+
+      // List of sprites
+      private List<ISprite> sprites;
+      
+      // Defines the white color
+      readonly ColorRGB colorWhite = new ColorRGB(255, 255, 255, 255);
 
       #endregion
 
@@ -49,6 +56,7 @@ namespace WordsGame.Game
       {
          get { return score; }
       }
+
       #endregion
 
       #region pattern builder: public methods 
@@ -77,16 +85,18 @@ namespace WordsGame.Game
       /// <param name="text"></param>
       public void buildTitle(int x, int y, string text, ColorRGB color = new ColorRGB())
       {
+         // Adds an image
          GraphicImageInfo settings = new GraphicImageInfo("images/title", new Coordinate2D(x, y), color);
          ImageProxy title = new ImageProxy(settings);
          sprites.Add(title);
-         // Title level
+
+         // Adds an text
          buildText(TypeFont.Arial, text, x + 110, y + 10, new ColorRGB(255, 255, 255, 255));
 
       }
 
       /// <summary>
-      /// Builds title
+      /// Builds Backgrund
       /// </summary>
       /// <param name="x"></param>
       /// <param name="y"></param>
@@ -98,61 +108,73 @@ namespace WordsGame.Game
          sprites.Add(title);
       }
 
+
       /// <summary>
-      /// Builds a letters grid
+      /// Build the letter grid and description
       /// </summary>
-      /// <param name="row">number row</param>
-      /// <param name="column">number column</param>
-      /// <param name="posRelx">position x</param>
-      /// <param name="posRelY">position y</param>
-      public void buildGridAndDescription(int row, int column, int centralpoint, int y, List<string> description, ColorRGB color, TypeFont font)
+      /// <param name="row"></param>
+      /// <param name="column"></param>
+      /// <param name="centralPoint"></param>
+      /// <param name="y"></param>
+      /// <param name="description"></param>
+      /// <param name="color"></param>
+      /// <param name="font"></param>
+      public void buildGridAndDescription(int row, int column, int centralPoint, int y, List<string> description, ColorRGB color, TypeFont font)
       {
-         
-         // Calculate central point with Visual distance between the letters
          int distance = 20;
-         LetterTile ltr = new LetterTile('a',new GraphicImageInfo("Letters/letter-" + 'a', new Coordinate2D(0, 0), new ColorRGB()), game);
-         int posX = centralpoint-(((ltr.GetExtent().Width+distance) * row)/2);
-        
-         // Level Description
          int posY = y;
+
+         // Gets a letterTile to calculate the width to show the grid centrally
+         LetterTile ltr = new LetterTile('a',new GraphicImageInfo("Letters/letter-" + 'a', new Coordinate2D(0, 0), new ColorRGB()), game);
+         int posX = centralPoint-(((ltr.GetExtent().Width+distance) * row)/2);
+
+         // Adds text sprites
          foreach (var text in description)
          {
+            // Level Description
             buildText(font, text, posX, posY, new ColorRGB(255, 255, 255, 255));
+            // Adds spaces between elements
             posY += 30;
          }
 
-         // Add distance between  description and grid
+         // Add distance between description and grid
          posY += 30;
-         Random rnd = new Random();
-         spriteGridLetter = new ISprite[row, column];
-         // Calculate position X
-        
+
+         // inizialite width and height
          int width = 0;
          int height = 0;
 
-         // Creates a grid with with the letters of the alphabet
+         // Creates a grid with the letters of the alphabet
          char[,] letterGrid = createLetterGrid(row, column);
 
          // Builds the grid 
          for (int r = 0; r < letterGrid.GetLength(0); r++)
          {
+            // Assigns the position of the letter on the y-coordinate axis
             int posYIncremental = posY;
 
+            // Read the array grid
             for (int c = 0; c < letterGrid.GetLength(1); c++)
             {
+               // Sets the letter to load
                char letter = letterGrid[r, c];
                
-               ColorRGB colorWhite = new ColorRGB(255, 255, 255, 255);
                GraphicImageInfo settings = new GraphicImageInfo("Letters/letter-" + letter, new Coordinate2D(posX, posYIncremental), colorWhite);
                LetterTile letterTile = new LetterTile(letter, settings, game);
+
+               // Reads the size
                Size size = letterTile.GetExtent();
                width = size.Width;
                height = size.Height;
+
+               // Increments the position set in the y axis
                posYIncremental += height + distance;
-               spriteGridLetter[r, c] = letterTile;
-               sprites.Add(spriteGridLetter[r, c]);
+
+               // Sets the letter that was just created
+               sprites.Add(letterTile);
             }
 
+            // Increments the position set in the x axis
             posX += width + distance;
          }
       }
@@ -168,7 +190,7 @@ namespace WordsGame.Game
       {
         
          GraphicImageInfo settingsimg = new GraphicImageInfo("images/score", new Coordinate2D(x-50, y-10), new ColorRGB(255,255,255,255));
-         ButtonReloadLevel img = new ButtonReloadLevel(settingsimg, game); 
+         LevelReloadButton img = new LevelReloadButton(settingsimg, game); 
          
          GraphicFontInfo settings = new GraphicFontInfo(typeFont, new Coordinate2D(x, y), color);
          Text text = new Text(settings, Score.ToString());
@@ -189,31 +211,30 @@ namespace WordsGame.Game
       public void buildReloadLevelBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicImageInfo settings = new GraphicImageInfo("images/reload", new Coordinate2D(x, y), color);
-         ButtonReloadLevel btn = new ButtonReloadLevel(settings, game);
+         LevelReloadButton btn = new LevelReloadButton(settings, game);
          sprites.Add(btn);
       }
 
-      /// <summary>
+
+      /// /// <summary>
       /// Builds game reload button
       /// </summary>
-      /// <param name="typeFont">type font</param>
-      /// <param name="x">position x</param>
-      /// <param name="y">position y</param>
-      /// <param name="color">color in Rgb</param>
+      /// <param name="x"></param>
+      /// <param name="y"></param>
+      /// <param name="color"></param>
       public void buildReloadGameBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicImageInfo settings = new GraphicImageInfo("images/home-icon", new Coordinate2D(x,y), color);
-         ButtonReloadGame btn = new ButtonReloadGame(settings, game);
+         GameReloadButton btn = new GameReloadButton(settings, game);
          sprites.Add(btn);
       }
 
       /// <summary>
-      /// Builds the level score
+      /// Shows a completed game image
       /// </summary>
-      /// <param name="typeFont">type font</param>
-      /// <param name="x">position x</param>
-      /// <param name="y">position y</param>
-      /// <param name="color">color in Rgb</param>
+      /// <param name="x"></param>
+      /// <param name="y"></param>
+      /// <param name="color"></param>
       public void buildWinner(int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicImageInfo settings = new GraphicImageInfo("images/overlay_win", new Coordinate2D(x, y), color);
@@ -222,10 +243,8 @@ namespace WordsGame.Game
       }
 
 
-      
-
       /// <summary>
-      /// Update Score
+      /// Update the current score
       /// </summary>
       public void UpdateScore()
       {
@@ -238,11 +257,11 @@ namespace WordsGame.Game
          var spriteOrdered = sprites.Where(x => x.GetTypeSprite().Equals(TypeSprite.Letter) && ((LetterTile)x).Highlight);
          var spritesDistinct = spriteOrdered.OrderBy(l => ((LetterTile)l).SequenceSelected).Distinct<ISprite>(); 
 
-         // reset string
+         // Reset string
          string str = "";
          int value = 0;
 
-         // concatenate the letters selected
+         // Concatenate the letters selected
          foreach (var sprite in spritesDistinct)
          {
             // Read the letter from the sprite
@@ -256,10 +275,10 @@ namespace WordsGame.Game
          // Accept word lenght of characters four or more
          if (str.Length >= 4 && wordsDictionary.IndexOf(str) >= 0 && selectedWordList.IndexOf(str) == -1)
          {
-            // Add new word
+            // Adds new word
             selectedWordList.Add(str);
 
-            // Call the method that plays the sound effect from the GameManager
+            // Calls the method that plays the sound effect from the GameManager
             game.NotifyCorrectWord();
 
             // Updates the score value and update scoreSprite
@@ -269,7 +288,10 @@ namespace WordsGame.Game
          }
       }
 
-      // Returns all sprites instantiated in the level
+      /// <summary>
+      /// Returns all sprites instantiated in the level
+      /// </summary>
+      /// <returns></returns>
       public List<ISprite> GetSprites()
       {
          return sprites;
@@ -286,9 +308,11 @@ namespace WordsGame.Game
          selectedWordList = new List<string>();
          sprites = new List<ISprite>();
       }
+
       #endregion
 
       #region privates methods
+
       /// <summary>
       /// Create a new letters grid
       /// </summary>
@@ -307,9 +331,9 @@ namespace WordsGame.Game
             {
                char letter = '\0';
                if (rnd.Next(2) == 1)
-                  letter = extractactLetter(frequencyLetter, rnd, row * column, letters);
+                  letter = extractLetter(frequencyLetter, rnd, row * column, letters);
                else
-                  letter = extractactLetter(frequencyLetter, rnd, row * column, vowels);
+                  letter = extractLetter(frequencyLetter, rnd, row * column, vowels);
 
                if (letter != '\0')
                {
@@ -320,7 +344,7 @@ namespace WordsGame.Game
                }
                else
                {
-                  // Se non è riuscito ad estrapolare nessuna lettera mette una consonante
+                  // If he failed to extract any letters he puts a consonant
                   letter = vowels.Substring(rnd.Next(vowels.Length), 1).ToCharArray().FirstOrDefault();
                }
 
@@ -339,7 +363,7 @@ namespace WordsGame.Game
       /// <param name="LetterTotal"></param>
       /// <param name="letters"></param>
       /// <returns></returns>
-      private char extractactLetter(Dictionary<char, int> frequencyLetter, Random rnd, int LetterTotal, string letters)
+      private char extractLetter(Dictionary<char, int> frequencyLetter, Random rnd, int LetterTotal, string letters)
       {
          char letterExtracted = '\0';
          int count = 0;
@@ -351,7 +375,7 @@ namespace WordsGame.Game
             count++;
             char letter = letters.Substring(rnd.Next(letters.Length), 1).ToCharArray().FirstOrDefault();
             // It Calculates the maximum extraction percentage for each letter extracted
-            double extractionmax = (LetterTile.getAnalisysExtractLangueIT(letter) * LetterTotal / 100);
+            double extractionmax = (LetterTile.GetFrequencyItalianLanguage(letter) * LetterTotal / 100);
 
             // If the letter extraction is less than its maximum extraction then it adds it
             if (frequencyLetter.ContainsKey(letter) && frequencyLetter[letter] < extractionmax)

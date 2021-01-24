@@ -14,8 +14,16 @@ namespace WordsGame.Game
    /// </summary>
    class CreateLevel
    {
+      #region private variables
+
+      // Presentation Area
       int widthAreaPresentation;
       int heightAreaPresentation;
+
+      // Level builder
+      private ILevelBuilder builder;
+
+      #endregion
 
       /// <summary>
       /// Costructor
@@ -27,16 +35,21 @@ namespace WordsGame.Game
          widthAreaPresentation = widthArea;
          heightAreaPresentation = heightArea;
       }
-      
-      private ILevelBuilder builder;
 
-      // Set builder
+
+      #region public variables
+
+      // Sets builder
       public ILevelBuilder Builder {
          set { builder = value; }
       }
 
+      #endregion
+
+      #region public methods
+
       /// <summary>
-      /// Build Level 
+      /// Builds Level 
       /// it creates a grid
       /// </summary>
       /// <param name="settings">Level Setting </param>
@@ -46,18 +59,22 @@ namespace WordsGame.Game
          if (settings == null)
             throw new InvalidDataException("The level settings were not found");
 
-         // Reset Level 
+         // Resets Level 
          builder.Reset();
-         // Title level
+
+         // Builds Background image
          builder.buildBackground(0,0, new ColorRGB(255, 255, 255, 255));
 
+         // Builds the Title 
          builder.buildTitle(widthAreaPresentation/2-150, 10, "LEVEL " + settings.LevelNumber, new ColorRGB(255, 255, 255, 255));
-        
+
+         // Builds the button to reload the level
          builder.buildReloadLevelBtn(widthAreaPresentation-200, 10, new ColorRGB(255, 255, 255, 255));
-         
+
+         // Builds the button to reload the game
          builder.buildReloadGameBtn(widthAreaPresentation-200, 100, new ColorRGB(255, 255, 255, 255));
 
-         // Centered letter grid
+         // Builds the letters grid and description 
          builder.buildGridAndDescription(
             settings.Rows, 
             settings.Columns, 
@@ -69,10 +86,10 @@ namespace WordsGame.Game
             new ColorRGB(255, 255, 255, 255), 
             TypeFont.Arial);
 
-         // Level score
+         // Builds the level score
          builder.buildScore(TypeFont.Arial, 100, 30, new ColorRGB(231, 125, 55, 255));
 
-         // Return the objects of type sprite
+         // Returns the objects of type sprite
          return builder.GetSprites();
       }
 
@@ -87,5 +104,7 @@ namespace WordsGame.Game
 
          return builder.GetSprites();
       }
+      
+      #endregion
    }
 }

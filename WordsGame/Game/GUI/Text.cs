@@ -20,6 +20,7 @@ namespace WordsGame.Game
       public ColorRGB ColorText { get; set; }
       public Coordinate2D Coordinate { get; set; }
       public TypeFont Font { get; set; }
+
       #endregion
 
       /// <summary>
@@ -37,6 +38,7 @@ namespace WordsGame.Game
       }
 
       #region public methods
+
       /// <summary>
       /// Sprite type
       /// </summary>
@@ -71,9 +73,8 @@ namespace WordsGame.Game
             throw new Exception("Unexpected error draw detail message: " + ex.Message);
          }
       }
+
       #endregion
-
-
 
    }
 

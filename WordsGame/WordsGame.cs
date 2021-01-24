@@ -12,25 +12,33 @@ namespace WordsGame.Game
 {
    public class WordsGame : Microsoft.Xna.Framework.Game
    {
+      #region private variables
+
+      // Display settings
+      private Vector2 baseScreenSize = new Vector2(1200, 1200);
+      private Matrix globalTransformation;
+      private int backbufferWidth = 1200;
+      private int backbufferHeight = 1000;
+
+      // Get state button
+      private bool mousePressed = false;
+      private bool mouseRelease = false;
+
+      // game manager operate on the levels and game logic
+      private GameManager gameManager;
+
+      #endregion
+
+      #region public variables
+
       // Static classes of Xna for the graphic manager
       public static GraphicsDeviceManager Graphics;
       public static SpriteBatch SpriteBatch;
 
       // Static class of Xna for graphics content
       public static ContentManager Content;
-
-      // Display settings
-      Vector2 baseScreenSize = new Vector2(1200, 1200);
-      private Matrix globalTransformation;
-      int backbufferWidth = 1200;
-      int backbufferHeight = 1000;
-
-      // Get state button
-      bool mousePressed = false;
-      bool mouseRelease = false;
-
-      // game manager operate on the levels and game logic
-      private GameManager gameManager;
+      
+      #endregion
 
       /// <summary>
       /// Define the main class of the game
@@ -51,6 +59,8 @@ namespace WordsGame.Game
          IsMouseVisible = true;
       }
 
+      #region overrides protected methods Xna
+
       /// <summary>
       /// Initialize Game
       /// </summary>
@@ -61,7 +71,7 @@ namespace WordsGame.Game
          Graphics.PreferredBackBufferHeight = backbufferHeight;
          Graphics.ApplyChanges();
 
-         // game manager 
+         // Game manager 
          gameManager = new GameManager(
             new List<LevelSettings>() {
                new LevelSettings(1, 30, 5, 5),
@@ -137,12 +147,15 @@ namespace WordsGame.Game
          base.Draw(gameTime);
       }
 
+      #endregion
+
+      #region private methods
       // Call Events associated to Mouse Input
       private void HandlesEventsInput(GameTime gameTime)
       {
          // Update the current state of the mouse
-
          MouseState mouseState = Mouse.GetState();
+         
          // Left button clicked
          if (mouseState.LeftButton == ButtonState.Pressed)
          {
@@ -151,7 +164,7 @@ namespace WordsGame.Game
             gameManager.MouseIsLeftDown();
          }
 
-         // Mouse Released 
+         // Mouse On Released 
          if (mouseState.LeftButton == ButtonState.Released && mousePressed && !mouseRelease)
          {
             mouseRelease = true;
@@ -159,6 +172,7 @@ namespace WordsGame.Game
             gameManager.MouseIsLeftRelease();
          }
 
+         // Mouse On Over 
          gameManager.MouseIsOver();
 
          // Poll for current keyboard state
@@ -167,7 +181,10 @@ namespace WordsGame.Game
          // If they hit esc, exit
          if (state.IsKeyDown(Keys.Escape))
          {
-            // graphic resource free
+            // Game Manager is destroyed
+            gameManager = null;
+
+            // Free graphic resources
             Content.Unload();
 
             // Exit from the game
@@ -176,10 +193,11 @@ namespace WordsGame.Game
 
 
       }
+
       /// <summary>
-      /// Redefine presentation area 
+      /// Redefine the presentation area
       /// </summary>
-      public void ScalePresentationArea()
+      private void ScalePresentationArea()
       {
          //Work out how much we need to scale our graphics to fill the screen
          backbufferWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
@@ -189,5 +207,7 @@ namespace WordsGame.Game
          Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
          globalTransformation = Matrix.CreateScale(screenScalingFactor);
       }
+      
+      #endregion
    }
 }
