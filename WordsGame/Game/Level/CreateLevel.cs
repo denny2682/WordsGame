@@ -66,7 +66,7 @@ namespace WordsGame.Game
          builder.BuildBackground(0,0, new ColorRGB(255, 255, 255, 255));
 
          // Builds the Title 
-         builder.BuildTitle(widthAreaPresentation/2-150, 10, "LEVEL " + settings.LevelNumber, new ColorRGB(255, 255, 255, 255));
+         builder.BuildTitle(widthAreaPresentation/2-150, 10, "LIVELLO " + settings.LevelNumber, new ColorRGB(255, 255, 255, 255));
 
          // Builds the button to reload the level
          builder.BuildReloadLevelBtn(widthAreaPresentation-200, 10, new ColorRGB(255, 255, 255, 255));

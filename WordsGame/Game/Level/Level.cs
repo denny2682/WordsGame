@@ -91,7 +91,7 @@ namespace WordsGame.Game
          sprites.Add(title);
 
          // Adds an text
-         BuildText(TypeFont.Arial, text, x + 110, y + 10, new ColorRGB(255, 255, 255, 255));
+         BuildText(TypeFont.Arial, text, x + 90, y + 10, new ColorRGB(255, 255, 255, 255));
 
       }
 
