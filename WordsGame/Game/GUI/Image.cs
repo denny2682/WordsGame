@@ -21,7 +21,7 @@ namespace WordsGame.Game
       // Coordinate
       private Coordinate2D coordinate;
       
-      #endregion region
+      #endregion
 
       /// <summary>
       /// Costructor

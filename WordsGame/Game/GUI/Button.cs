@@ -6,7 +6,7 @@ using WordsGame.Game.Utility;
 namespace WordsGame.Game
 {
    /// <summary>
-   /// General Button Abastract
+   ///Button - Abstract class
    /// </summary>
    abstract class Button : ImageProxy
    {
@@ -19,30 +19,57 @@ namespace WordsGame.Game
       public Button(GraphicImageInfo settings, GameManager game) : base(settings)
       {
          gameManager = game;
-         addEventOnClick(game);
-         addEventOnMouseOver(game);
+         AddEventOnClick(game);
+         AddEventOnMouseOver(game);
       }
 
       #region protected methods 
 
+      /// <summary>
+      /// This method 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
       protected virtual void Onclick(object sender, EventArgs e) { }
+      
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
       protected virtual void OnMouseOver(object sender, EventArgs e) { }
 
-      protected void addEventOnClick(GameManager game)
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="game"></param>
+      protected void AddEventOnClick(GameManager game)
       {
          game.MouseOnReleased += this.Onclick;
       }
 
-      protected void addEventOnMouseOver(GameManager game)
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="game"></param>
+      protected void AddEventOnMouseOver(GameManager game)
       {
          game.MouseOnOver += this.OnMouseOver;
       }
       
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="game"></param>
       protected void RemoveEventOnClick(GameManager game)
       {
          game.MouseOnReleased -= this.Onclick;
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="game"></param>
       protected void RemoveEventOnMouseOver(GameManager game)
       {
          game.MouseOnReleased -= this.Onclick;

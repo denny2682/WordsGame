@@ -10,17 +10,17 @@ namespace WordsGame.Game
    /// </summary>
    public interface ILevelBuilder
    {
-      public void buildBackground(int x, int y, ColorRGB color = new ColorRGB());
-      public void buildTitle(int x, int y, string text, ColorRGB color = new ColorRGB());
-      public void buildText(TypeFont typeFont, string text, int x, int y, ColorRGB colorRGB);
-      public void buildGridAndDescription(int row, int column, int x, int y, List<string> description, ColorRGB colorRGB, TypeFont typeFont);
-      public void buildScore(TypeFont typeFont, int x, int y, ColorRGB colorRGB);
+      public void BuildBackground(int x, int y, ColorRGB color = new ColorRGB());
+      public void BuildTitle(int x, int y, string text, ColorRGB color = new ColorRGB());
+      public void BuildText(TypeFont typeFont, string text, int x, int y, ColorRGB colorRGB);
+      public void BuildGridAndDescription(int row, int column, int x, int y, List<string> description, ColorRGB colorRGB, TypeFont typeFont);
+      public void BuildScore(TypeFont typeFont, int x, int y, ColorRGB colorRGB);
 
-      public void buildWinner(int x, int y, ColorRGB colorRGB);
+      public void BuildWinner(int x, int y, ColorRGB colorRGB);
 
-      public void buildReloadLevelBtn (int x, int y, ColorRGB colorRGB);
+      public void BuildReloadLevelBtn (int x, int y, ColorRGB colorRGB);
 
-      public void buildReloadGameBtn (int x, int y, ColorRGB colorRGB);
+      public void BuildReloadGameBtn (int x, int y, ColorRGB colorRGB);
 
       public List<ISprite> GetSprites();
      

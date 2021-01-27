@@ -19,7 +19,8 @@ namespace WordsGame.Game
 
       private Size extent;
       private ColorRGB color;
-      
+      private string fileName;
+
       #endregion
 
       #region protected variables
@@ -37,16 +38,11 @@ namespace WordsGame.Game
       public ImageProxy(GraphicImageInfo settings)
       {
          coordinate = settings.Coordinate;
-         sourceFile = settings.FileName;
+         fileName = settings.FileName;
          color = settings.Color;
       }
 
       #region public variables
-
-      /// <summary>
-      /// File name
-      /// </summary>
-      public string sourceFile;
 
       /// <summary>
       /// Return if the image was selected
@@ -93,7 +89,7 @@ namespace WordsGame.Game
       public Size GetExtent()
       {
          if (extent.Height == 0 && extent.Width == 0)
-            extent = Utils.GetFileSize(sourceFile, WordsGame.Content.RootDirectory);
+            extent = Utils.GetFileSize(fileName, WordsGame.Content.RootDirectory);
          return extent;
       }
 
@@ -161,7 +157,7 @@ namespace WordsGame.Game
       protected Image GetImage()
       {
          if (Image == null)
-            Image = new Image(new GraphicImageInfo(sourceFile, Coordinate, color));
+            Image = new Image(new GraphicImageInfo(fileName, Coordinate, color));
          return Image;
       }
 

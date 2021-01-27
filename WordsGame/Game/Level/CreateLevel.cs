@@ -63,19 +63,19 @@ namespace WordsGame.Game
          builder.Reset();
 
          // Builds Background image
-         builder.buildBackground(0,0, new ColorRGB(255, 255, 255, 255));
+         builder.BuildBackground(0,0, new ColorRGB(255, 255, 255, 255));
 
          // Builds the Title 
-         builder.buildTitle(widthAreaPresentation/2-150, 10, "LEVEL " + settings.LevelNumber, new ColorRGB(255, 255, 255, 255));
+         builder.BuildTitle(widthAreaPresentation/2-150, 10, "LEVEL " + settings.LevelNumber, new ColorRGB(255, 255, 255, 255));
 
          // Builds the button to reload the level
-         builder.buildReloadLevelBtn(widthAreaPresentation-200, 10, new ColorRGB(255, 255, 255, 255));
+         builder.BuildReloadLevelBtn(widthAreaPresentation-200, 10, new ColorRGB(255, 255, 255, 255));
 
          // Builds the button to reload the game
-         builder.buildReloadGameBtn(widthAreaPresentation-200, 100, new ColorRGB(255, 255, 255, 255));
+         builder.BuildReloadGameBtn(widthAreaPresentation-200, 100, new ColorRGB(255, 255, 255, 255));
 
          // Builds the letters grid and description 
-         builder.buildGridAndDescription(
+         builder.BuildGridAndDescription(
             settings.Rows, 
             settings.Columns, 
             widthAreaPresentation/2, 150, 
@@ -88,7 +88,7 @@ namespace WordsGame.Game
             TypeFont.Arial);
 
          // Builds the level score
-         builder.buildScore(TypeFont.Arial, 100, 30, new ColorRGB(231, 125, 55, 255));
+         builder.BuildScore(TypeFont.Arial, 100, 30, new ColorRGB(231, 125, 55, 255));
 
          // Returns the objects of type sprite
          return builder.GetSprites();
@@ -101,7 +101,7 @@ namespace WordsGame.Game
       public List<ISprite> addWin()
       {
          if (builder != null)
-            builder.buildWinner(widthAreaPresentation/2-200, 400, new ColorRGB(255, 255, 255, 255));
+            builder.BuildWinner(widthAreaPresentation/2-200, 400, new ColorRGB(255, 255, 255, 255));
 
          return builder.GetSprites();
       }

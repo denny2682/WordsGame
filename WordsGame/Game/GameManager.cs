@@ -129,12 +129,10 @@ namespace WordsGame.Game
       /// </summary>
       public void MouseIsLeftRelease()
       {
+         // Updates the Score
          level.UpdateScore();
          if (MouseOnReleased != null)
-         {
             MouseOnReleased(this, new EventArgs());
-         }
-
       }
 
       /// <summary>
@@ -147,6 +145,33 @@ namespace WordsGame.Game
       }
 
       #endregion public methods for event calls
+
+      /// <summary>
+      /// This method reloads the current level
+      /// </summary>
+      public void ReloadLevel()
+      {
+         // this creates a new level
+         createLevel();
+      }
+
+      /// <summary>
+      /// This method reloads the game
+      /// </summary>
+      public void ReloadGame()
+      {
+         try
+         {
+            endgame = false;
+            currentLevel = settingsLevel.FirstOrDefault().LevelNumber;
+            createLevel();
+         }
+         catch (Exception ex)
+         {
+            throw new Exception("Game reload fails due to unexpected error " + ex.Message);
+         }
+      }
+
 
       #endregion public methods
 
@@ -226,35 +251,8 @@ namespace WordsGame.Game
 
          }
       }
-
-      /// <summary>
-      /// This method reloads the current level
-      /// </summary>
-      public void ReloadLevel()
-      {
-         // this creates a new level
-         createLevel();
-      }
-
-      /// <summary>
-      /// This method reloads the game
-      /// </summary>
-      public void ReloadGame()
-      {
-         try
-         {
-            endgame = false;
-            currentLevel = settingsLevel.FirstOrDefault().LevelNumber;
-            createLevel();
-         }
-         catch (Exception ex)
-         {
-            throw new Exception("Game reload fails due to unexpected error " + ex.Message);
-         }
-      }
-      
       #endregion
-
+      
       #region private Method for events 
       
       /// <summary>

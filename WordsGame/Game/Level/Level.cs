@@ -69,7 +69,7 @@ namespace WordsGame.Game
       /// <param name="x">position x</param>
       /// <param name="y">position y</param>
       /// <param name="color">color in Rgb</param>
-      public void buildText(TypeFont typeFont, string textView, int x, int y, ColorRGB color = new ColorRGB())
+      public void BuildText(TypeFont typeFont, string textView, int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicFontInfo settings = new GraphicFontInfo(typeFont, new Coordinate2D(x, y), color);
          Text text = new Text(settings, textView);
@@ -83,7 +83,7 @@ namespace WordsGame.Game
       /// <param name="y"></param>
       /// <param name="color"></param>
       /// <param name="text"></param>
-      public void buildTitle(int x, int y, string text, ColorRGB color = new ColorRGB())
+      public void BuildTitle(int x, int y, string text, ColorRGB color = new ColorRGB())
       {
          // Adds an image
          GraphicImageInfo settings = new GraphicImageInfo("images/title", new Coordinate2D(x, y), color);
@@ -91,7 +91,7 @@ namespace WordsGame.Game
          sprites.Add(title);
 
          // Adds an text
-         buildText(TypeFont.Arial, text, x + 110, y + 10, new ColorRGB(255, 255, 255, 255));
+         BuildText(TypeFont.Arial, text, x + 110, y + 10, new ColorRGB(255, 255, 255, 255));
 
       }
 
@@ -101,7 +101,7 @@ namespace WordsGame.Game
       /// <param name="x"></param>
       /// <param name="y"></param>
       /// <param name="color"></param>
-      public void buildBackground(int x, int y, ColorRGB color = new ColorRGB())
+      public void BuildBackground(int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicImageInfo settings = new GraphicImageInfo("images/bg_alternative", new Coordinate2D(x, y), color);
          ImageProxy title = new ImageProxy(settings);
@@ -119,7 +119,7 @@ namespace WordsGame.Game
       /// <param name="description"></param>
       /// <param name="color"></param>
       /// <param name="font"></param>
-      public void buildGridAndDescription(int row, int column, int centralPoint, int y, List<string> description, ColorRGB color, TypeFont font)
+      public void BuildGridAndDescription(int row, int column, int centralPoint, int y, List<string> description, ColorRGB color, TypeFont font)
       {
          int distance = 20;
          int posY = y;
@@ -132,7 +132,7 @@ namespace WordsGame.Game
          foreach (var text in description)
          {
             // Level Description
-            buildText(font, text, posX, posY, new ColorRGB(255, 255, 255, 255));
+            BuildText(font, text, posX, posY, new ColorRGB(255, 255, 255, 255));
             // Adds spaces between elements
             posY += 30;
          }
@@ -186,7 +186,7 @@ namespace WordsGame.Game
       /// <param name="x">position x</param>
       /// <param name="y">position y</param>
       /// <param name="color">color in Rgb</param>
-      public void buildScore(TypeFont typeFont, int x, int y, ColorRGB color = new ColorRGB())
+      public void BuildScore(TypeFont typeFont, int x, int y, ColorRGB color = new ColorRGB())
       {
         
          GraphicImageInfo settingsimg = new GraphicImageInfo("images/score", new Coordinate2D(x-50, y-10), new ColorRGB(255,255,255,255));
@@ -208,7 +208,7 @@ namespace WordsGame.Game
       /// <param name="x">position x</param>
       /// <param name="y">position y</param>
       /// <param name="color">color in Rgb</param>
-      public void buildReloadLevelBtn(int x, int y, ColorRGB color = new ColorRGB())
+      public void BuildReloadLevelBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicImageInfo settings = new GraphicImageInfo("images/reload", new Coordinate2D(x, y), color);
          LevelReloadButton btn = new LevelReloadButton(settings, game);
@@ -222,7 +222,7 @@ namespace WordsGame.Game
       /// <param name="x"></param>
       /// <param name="y"></param>
       /// <param name="color"></param>
-      public void buildReloadGameBtn(int x, int y, ColorRGB color = new ColorRGB())
+      public void BuildReloadGameBtn(int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicImageInfo settings = new GraphicImageInfo("images/home-icon", new Coordinate2D(x,y), color);
          GameReloadButton btn = new GameReloadButton(settings, game);
@@ -235,7 +235,7 @@ namespace WordsGame.Game
       /// <param name="x"></param>
       /// <param name="y"></param>
       /// <param name="color"></param>
-      public void buildWinner(int x, int y, ColorRGB color = new ColorRGB())
+      public void BuildWinner(int x, int y, ColorRGB color = new ColorRGB())
       {
          GraphicImageInfo settings = new GraphicImageInfo("images/overlay_win", new Coordinate2D(x, y), color);
          ImageProxy image = new ImageProxy(settings);
